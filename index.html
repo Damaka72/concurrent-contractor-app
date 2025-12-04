@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Concurrent Contractor™ - Professional contractor management with the OPERATE Framework for tracking contracts, reflections, and weekly reports.">
     <title>The Concurrent Contractor™ - OPERATE Framework</title>
+    <link rel="icon" type="image/png" href="assets/images/tcc-logo.png">
     <style>
         * {
             margin: 0;
@@ -13,6 +15,8 @@
 
         :root {
             --gold: #FFD700;
+            --gold-dark: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
             --orange: #FF8C00;
             --black: #000000;
             --dark: #1A1A1A;
@@ -31,15 +35,31 @@
             background: var(--black);
             border-bottom: 4px solid var(--gold);
             padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .header-content {
+            flex: 1;
         }
 
         .header h1 {
             font-size: 2rem;
             font-weight: 900;
+            font-family: Georgia, 'Times New Roman', serif;
         }
 
         .header .gold {
-            color: var(--gold);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .container {
@@ -323,6 +343,17 @@
             margin-bottom: 0.5rem;
         }
 
+        .brand-logo {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .report-logo {
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -334,6 +365,24 @@
 
             .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .header-logo {
+                height: 50px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .report-logo {
+                max-width: 280px;
             }
         }
 
@@ -400,7 +449,10 @@
 </head>
 <body>
     <div class="header">
-        <h1>THE CONCURRENT <span class="gold">CONTRACTOR</span>™</h1>
+        <img src="assets/images/tcc-logo.png" alt="TCC Logo" class="header-logo" onerror="this.style.display='none'">
+        <div class="header-content">
+            <h1>The Concurrent <span class="gold">Contractor</span>™</h1>
+        </div>
     </div>
 
     <div class="container">
@@ -618,9 +670,9 @@
 
             <div id="reportPreview" style="background: white; color: black; padding: 3rem; border-radius: 8px;">
                 <div style="text-align: center; margin-bottom: 2rem;">
-                    <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Logo</div>
-                    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">WEEKLY STATUS REPORT</h1>
-                    <p style="color: var(--orange); font-size: 1.25rem; font-weight: bold;" id="reportClient">Unspecified Client</p>
+                    <img src="assets/images/tcc-text-logo-framed.png" alt="The Concurrent Contractor" style="max-width: 400px; height: auto; margin-bottom: 1.5rem;" onerror="this.outerHTML='<div style=\'font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; font-family: Georgia, serif;\'>The Concurrent Contractor™</div>'">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: bold;">WEEKLY STATUS REPORT</h1>
+                    <p style="color: #FF8C00; font-size: 1.25rem; font-weight: bold;" id="reportClient">Unspecified Client</p>
                     <p style="color: #666;" id="reportWeek">WEEK COMMENCING: [DATE]</p>
                 </div>
 
@@ -631,7 +683,8 @@
                 </div>
 
                 <div style="border-top: 2px solid #ddd; margin-top: 3rem; padding-top: 1rem; text-align: center; color: #666; font-size: 0.875rem;">
-                    THE CONCURRENT CONTRACTOR FRAMEWORK © 2025
+                    <div style="font-family: Georgia, serif; font-weight: bold; margin-bottom: 0.25rem;">The Concurrent Contractor™</div>
+                    <div>OPERATE Framework © 2025</div>
                 </div>
             </div>
         </div>
