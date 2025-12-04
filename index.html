@@ -6,6 +6,9 @@
     <meta name="description" content="The Concurrent Contractor™ - Professional contractor management with the OPERATE Framework for tracking contracts, reflections, and weekly reports.">
     <title>The Concurrent Contractor™ - OPERATE Framework</title>
     <link rel="icon" type="image/png" href="assets/images/tcc-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,35 +17,101 @@
         }
 
         :root {
+            /* Premium Gold Palette */
             --gold: #FFD700;
-            --gold-dark: #D4AF37;
-            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            --gold-dark: #C5A051;
+            --gold-light: #F4E5C2;
+            --gold-gradient: linear-gradient(135deg, #C5A051 0%, #FFD700 50%, #F4E5C2 100%);
+            --gold-glow: rgba(255, 215, 0, 0.15);
+
+            /* Professional Orange */
             --orange: #FF8C00;
-            --black: #000000;
-            --dark: #1A1A1A;
-            --gray: #333333;
-            --light-gray: #666666;
+            --orange-dark: #D47300;
+            --orange-light: #FFA833;
+
+            /* Sophisticated Neutrals */
+            --black: #0A0A0A;
+            --dark: #151515;
+            --dark-elevated: #1C1C1C;
+            --gray-900: #222222;
+            --gray-800: #2A2A2A;
+            --gray-700: #333333;
+            --gray-600: #4A4A4A;
+            --gray-500: #666666;
+            --gray-400: #888888;
+            --gray-300: #AAAAAA;
+            --gray-200: #CCCCCC;
+
+            /* Accent Colors */
+            --blue: #3B82F6;
+            --blue-dark: #2563EB;
+            --green: #22C55E;
+            --green-dark: #16A34A;
+            --purple: #A855F7;
+            --purple-dark: #9333EA;
+
+            /* Shadows & Depth */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+            --shadow-gold: 0 0 20px var(--gold-glow), 0 4px 12px rgba(197, 160, 81, 0.2);
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 18px;
+
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--black);
-            color: white;
+            color: var(--gray-200);
             line-height: 1.6;
+            font-size: 15px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .header {
-            background: var(--black);
-            border-bottom: 4px solid var(--gold);
-            padding: 1.5rem 2rem;
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark) 100%);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gold-gradient) 1;
+            padding: 2rem 2.5rem;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+            box-shadow: 0 0 15px var(--gold-glow);
         }
 
         .header-logo {
-            height: 60px;
+            height: 70px;
             width: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            transition: transform var(--transition-base);
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
         }
 
         .header-content {
@@ -50,9 +119,11 @@
         }
 
         .header h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', Georgia, serif;
+            letter-spacing: -0.02em;
+            color: white;
         }
 
         .header .gold {
@@ -60,45 +131,76 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-weight: 800;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1450px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2.5rem;
         }
 
         .tabs {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
-            border-bottom: 2px solid var(--gray);
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gray-800);
+            padding-bottom: 0;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .tabs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gray-700), transparent);
         }
 
         .tab {
-            background: var(--dark);
-            color: #999;
+            background: transparent;
+            color: var(--gray-400);
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 1.75rem;
             font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.03em;
             cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 4px 4px 0 0;
+            transition: all var(--transition-base);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.625rem;
+            position: relative;
+            border: 1px solid transparent;
+            border-bottom: none;
         }
 
         .tab:hover {
-            color: white;
+            color: var(--gray-200);
+            background: var(--dark-elevated);
         }
 
         .tab.active {
-            background: var(--orange);
+            background: linear-gradient(180deg, var(--dark-elevated) 0%, var(--dark) 100%);
             color: white;
-            border-bottom: 4px solid var(--gold);
+            border-color: var(--gray-700);
+            border-bottom: none;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+            box-shadow: 0 0 12px var(--gold-glow);
+            border-radius: 3px 3px 0 0;
         }
 
         .tab-content {
@@ -110,237 +212,418 @@
         }
 
         .btn {
-            background: var(--orange);
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 2rem;
             font-weight: 600;
+            font-size: 0.9375rem;
             cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.02em;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background: var(--gold);
+            background: var(--gold-gradient);
             color: var(--black);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-secondary {
-            background: var(--dark);
-            border: 2px solid var(--gray);
+            background: var(--dark-elevated);
+            border: 2px solid var(--gray-700);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-secondary:hover {
-            border-color: var(--gold);
+            border-color: var(--gold-dark);
+            background: var(--gray-900);
+            color: var(--gold-light);
+            box-shadow: var(--shadow-md);
         }
 
         .card {
-            background: var(--dark);
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
         }
 
         .card:hover {
-            border-color: var(--gold);
+            border-color: var(--gray-600);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
         .grid {
             display: grid;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         }
 
         .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
 
         input, textarea, select {
             width: 100%;
-            background: var(--black);
-            border: 2px solid var(--gray);
-            color: white;
-            padding: 0.75rem;
-            border-radius: 4px;
+            background: var(--gray-900);
+            border: 2px solid var(--gray-700);
+            color: var(--gray-200);
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius-md);
             font-family: inherit;
+            font-size: 0.9375rem;
+            transition: all var(--transition-base);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         input:focus, textarea:focus, select:focus {
             outline: none;
-            border-color: var(--gold);
+            border-color: var(--gold-dark);
+            background: var(--black);
+            color: white;
+            box-shadow: 0 0 0 3px var(--gold-glow), inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
+            line-height: 1.6;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #999;
+            margin-bottom: 0.625rem;
+            color: var(--gray-400);
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
         }
 
         h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', Georgia, serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: white;
+            letter-spacing: -0.02em;
         }
 
         h3 {
+            font-family: 'Space Grotesk', Georgia, serif;
             font-size: 1.5rem;
+            font-weight: 600;
             margin-bottom: 1rem;
+            color: var(--gray-200);
+            letter-spacing: -0.01em;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .badge {
-            background: #854d0e;
-            color: #fbbf24;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            background: linear-gradient(135deg, #854d0e 0%, #a16207 100%);
+            color: #fde68a;
+            padding: 0.375rem 1rem;
+            border-radius: var(--radius-xl);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(251, 191, 36, 0.2);
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: var(--gray);
-            border-radius: 4px;
+            height: 10px;
+            background: var(--gray-800);
+            border-radius: var(--radius-sm);
             overflow: hidden;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--gold);
-            transition: width 0.3s;
+            background: var(--gold-gradient);
+            transition: width var(--transition-slow);
+            box-shadow: 0 0 10px var(--gold-glow);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
         }
 
         .info-box {
-            background: var(--black);
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
             border-left: 4px solid var(--orange);
-            padding: 1.5rem;
-            border-radius: 4px;
-            margin: 1.5rem 0;
+            padding: 1.75rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-800);
+            border-left: 4px solid var(--orange);
         }
 
         .info-box h4 {
-            color: var(--orange);
-            margin-bottom: 0.5rem;
+            color: var(--orange-light);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
         }
 
         .reflection-card {
-            background: var(--dark);
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
         }
 
-        .reflection-card.green { border-top: 4px solid #22c55e; }
-        .reflection-card.orange { border-top: 4px solid var(--orange); }
-        .reflection-card.blue { border-top: 4px solid #3b82f6; }
+        .reflection-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .reflection-card.green::before {
+            background: linear-gradient(90deg, var(--green-dark), var(--green));
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .reflection-card.orange::before {
+            background: linear-gradient(90deg, var(--orange-dark), var(--orange));
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+        }
+
+        .reflection-card.blue::before {
+            background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .reflection-card:hover {
+            border-color: var(--gray-600);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
 
         .operate-card {
-            background: var(--dark);
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
         }
 
-        .operate-card.blue { border-top: 4px solid #3b82f6; }
-        .operate-card.purple { border-top: 4px solid #a855f7; }
-        .operate-card.green { border-top: 4px solid #22c55e; }
+        .operate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .operate-card.blue::before {
+            background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .operate-card.purple::before {
+            background: linear-gradient(90deg, var(--purple-dark), var(--purple));
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .operate-card.green::before {
+            background: linear-gradient(90deg, var(--green-dark), var(--green));
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .operate-card:hover {
+            border-color: var(--gray-600);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            border-radius: var(--radius-md);
+            overflow: hidden;
         }
 
         th {
-            background: var(--black);
-            padding: 1rem;
+            background: var(--gray-900);
+            padding: 1.125rem 1.25rem;
             text-align: left;
-            color: #999;
-            font-weight: 600;
+            color: var(--gray-400);
+            font-weight: 700;
+            font-size: 0.8125rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--gray-800);
         }
 
         td {
-            padding: 1rem;
-            border-top: 1px solid var(--gray);
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--gray-800);
+            color: var(--gray-300);
+        }
+
+        td input, td select {
+            font-size: 0.875rem;
+            padding: 0.625rem 0.875rem;
         }
 
         .resource-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.875rem;
         }
 
         .resource-btn {
             flex: 1;
-            padding: 1rem;
-            border: 2px solid var(--gray);
-            background: var(--dark);
-            color: white;
+            padding: 1.125rem 1rem;
+            border: 2px solid var(--gray-700);
+            background: var(--dark-elevated);
+            color: var(--gray-300);
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: var(--radius-md);
             font-weight: 600;
-            transition: all 0.2s;
+            font-size: 0.875rem;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
         }
 
         .resource-btn:hover {
-            border-color: var(--gold);
+            border-color: var(--gold-dark);
+            background: var(--gray-900);
+            color: white;
+            box-shadow: var(--shadow-md);
         }
 
         .resource-btn.active {
             border-color: var(--gold);
-            background: var(--orange);
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow-gold);
         }
 
         .empty-state {
             text-align: center;
-            padding: 3rem;
-            color: #666;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
         }
 
         .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.25rem;
+            opacity: 0.5;
         }
 
         .contract-card {
-            background: var(--dark);
-            border: 2px solid var(--gray);
-            padding: 1.5rem;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 2px solid var(--gray-800);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contract-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gold-gradient);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .contract-card:hover::before {
+            opacity: 1;
         }
 
         .contract-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-2px);
+            border-color: var(--gold-dark);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
         }
 
         .contract-name {
-            font-size: 1.25rem;
+            font-family: 'Space Grotesk', Georgia, serif;
+            font-size: 1.375rem;
             font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
         }
 
         .brand-logo {
@@ -356,11 +639,17 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 1rem;
+                padding: 1.5rem;
             }
 
             .tabs {
                 overflow-x: auto;
+                gap: 0.5rem;
+            }
+
+            .tab {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.8125rem;
             }
 
             .grid-2, .grid-3 {
@@ -370,19 +659,38 @@
             .header {
                 flex-direction: column;
                 text-align: center;
-                gap: 1rem;
+                gap: 1.25rem;
+                padding: 1.5rem;
             }
 
             .header-logo {
-                height: 50px;
+                height: 55px;
             }
 
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.875rem;
+            }
+
+            h3 {
+                font-size: 1.25rem;
             }
 
             .report-logo {
                 max-width: 280px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .contract-card {
+                padding: 1.5rem;
             }
         }
 
@@ -393,10 +701,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(4px);
             z-index: 1000;
             overflow-y: auto;
             padding: 2rem;
+            animation: fadeIn var(--transition-base);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal.active {
@@ -406,44 +721,78 @@
         }
 
         .modal-content {
-            background: var(--dark);
-            border: 2px solid var(--gray);
-            border-radius: 8px;
-            padding: 2rem;
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
             max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp var(--transition-base);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-800);
+        }
+
+        .modal-header h3 {
+            margin: 0;
         }
 
         .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
+            background: var(--gray-900);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            color: var(--gray-400);
+            font-size: 1.5rem;
             cursor: pointer;
-            padding: 0;
+            padding: 0.25rem 0.625rem;
             line-height: 1;
+            transition: all var(--transition-base);
         }
 
         .close-btn:hover {
             color: var(--gold);
+            border-color: var(--gold-dark);
+            background: var(--gray-800);
         }
 
         .success-message {
-            background: #166534;
-            color: #86efac;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            border-left: 4px solid #22c55e;
+            background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+            color: #d1fae5;
+            padding: 1.125rem 1.25rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--green);
+            box-shadow: var(--shadow-md);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .success-message::before {
+            content: '✓';
+            font-size: 1.25rem;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -458,22 +807,22 @@
     <div class="container">
         <div class="tabs">
             <button class="tab active" data-tab="contracts">
-                📋 CONTRACTS
+                CONTRACTS
             </button>
             <button class="tab" data-tab="setup">
-                ⚙️ SETUP
+                SETUP
             </button>
             <button class="tab" data-tab="reflect">
-                👁️ REFLECT
+                REFLECT
             </button>
             <button class="tab" data-tab="operate">
-                🔄 OPERATE
+                OPERATE
             </button>
             <button class="tab" data-tab="trackers">
-                📊 TRACKERS
+                TRACKERS
             </button>
             <button class="tab" data-tab="report">
-                📄 REPORT
+                REPORT
             </button>
         </div>
 
@@ -493,9 +842,11 @@
         <!-- SETUP TAB -->
         <div class="tab-content" id="setup">
             <div class="section-header">
-                <h2>⚙️ WEEKLY CONFIGURATION</h2>
+                <div>
+                    <h2>WEEKLY CONFIGURATION</h2>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Set your context for the week</p>
+                </div>
             </div>
-            <p style="color: #999; margin-bottom: 2rem;">SET YOUR CONTEXT</p>
 
             <div id="setupSuccessMessage"></div>
 
@@ -524,7 +875,12 @@
 
         <!-- REFLECT TAB -->
         <div class="tab-content" id="reflect">
-            <h2>👁️ WEEKLY REFLECTION</h2>
+            <div class="section-header">
+                <div>
+                    <h2>WEEKLY REFLECTION</h2>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Review your week and track progress</p>
+                </div>
+            </div>
 
             <div id="reflectSuccessMessage"></div>
 
@@ -546,24 +902,24 @@
             </div>
 
             <div class="card">
-                <h3>📊 RESOURCE CHECK</h3>
+                <h3>RESOURCE CHECK</h3>
 
                 <div class="grid grid-2" style="gap: 2rem;">
                     <div>
-                        <h4 style="margin-bottom: 1rem;">WORKLOAD</h4>
+                        <h4 style="margin-bottom: 1rem; color: var(--gray-300); font-weight: 600;">WORKLOAD</h4>
                         <div class="resource-buttons">
-                            <button class="resource-btn" data-workload="comfortable">😊 COMFORTABLE</button>
-                            <button class="resource-btn" data-workload="stretched">😐 STRETCHED</button>
-                            <button class="resource-btn" data-workload="overloaded">😰 OVERLOADED</button>
+                            <button class="resource-btn" data-workload="comfortable">COMFORTABLE</button>
+                            <button class="resource-btn" data-workload="stretched">STRETCHED</button>
+                            <button class="resource-btn" data-workload="overloaded">OVERLOADED</button>
                         </div>
                     </div>
 
                     <div>
-                        <h4 style="margin-bottom: 1rem;">ENERGY LEVEL</h4>
+                        <h4 style="margin-bottom: 1rem; color: var(--gray-300); font-weight: 600;">ENERGY LEVEL</h4>
                         <div class="resource-buttons">
-                            <button class="resource-btn" data-energy="high">⚡ HIGH</button>
-                            <button class="resource-btn" data-energy="medium">🔋 MEDIUM</button>
-                            <button class="resource-btn" data-energy="low">🔋 LOW</button>
+                            <button class="resource-btn" data-energy="high">HIGH</button>
+                            <button class="resource-btn" data-energy="medium">MEDIUM</button>
+                            <button class="resource-btn" data-energy="low">LOW</button>
                         </div>
                     </div>
                 </div>
@@ -574,23 +930,28 @@
 
         <!-- OPERATE TAB -->
         <div class="tab-content" id="operate">
-            <h2>🔄 OPERATE FRAMEWORK</h2>
+            <div class="section-header">
+                <div>
+                    <h2>OPERATE FRAMEWORK</h2>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Plan, Execute, and Report on your weekly objectives</p>
+                </div>
+            </div>
 
             <div id="operateSuccessMessage"></div>
 
             <div class="grid grid-2">
                 <div class="operate-card blue">
-                    <h3>📅 PLAN</h3>
+                    <h3>PLAN</h3>
                     <textarea id="operatePlan" placeholder="1-3 Key Outcomes & Tasks..."></textarea>
                 </div>
 
                 <div class="operate-card purple">
-                    <h3>⚡ EXECUTE</h3>
+                    <h3>EXECUTE</h3>
                     <textarea id="operateExecute" placeholder="Deep work block strategy & Protection..."></textarea>
                 </div>
 
                 <div class="operate-card green">
-                    <h3>📢 REPORT</h3>
+                    <h3>REPORT</h3>
                     <textarea id="operateReport" placeholder="Proactive reporting status..."></textarea>
                 </div>
             </div>
@@ -600,13 +961,21 @@
 
         <!-- TRACKERS TAB -->
         <div class="tab-content" id="trackers">
-            <h2>📊 TRACKERS</h2>
+            <div class="section-header">
+                <div>
+                    <h2>TRACKERS</h2>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Track risks and value delivery</p>
+                </div>
+            </div>
 
             <!-- Risk Assessment -->
             <div style="margin-bottom: 3rem;">
                 <div class="section-header">
                     <div>
-                        <h3>⚠️ RISK ASSESSMENT <span class="badge">PRIVATE</span></h3>
+                        <h3 style="display: flex; align-items: center; gap: 1rem;">
+                            RISK ASSESSMENT
+                            <span class="badge">PRIVATE</span>
+                        </h3>
                     </div>
                     <button class="btn" onclick="addRisk()">+ ADD RISK</button>
                 </div>
@@ -631,7 +1000,10 @@
             <div>
                 <div class="section-header">
                     <div>
-                        <h3>💎 VALUE TRACKER <span class="badge">PRIVATE</span></h3>
+                        <h3 style="display: flex; align-items: center; gap: 1rem;">
+                            VALUE TRACKER
+                            <span class="badge">PRIVATE</span>
+                        </h3>
                     </div>
                     <button class="btn" onclick="addValue()">+ ADD VALUE</button>
                 </div>
@@ -654,10 +1026,13 @@
         <!-- REPORT TAB -->
         <div class="tab-content" id="report">
             <div class="section-header">
-                <h2>📄 WEEKLY STATUS REPORT</h2>
+                <div>
+                    <h2>WEEKLY STATUS REPORT</h2>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Generate and export your professional weekly report</p>
+                </div>
                 <div style="display: flex; gap: 1rem;">
-                    <button class="btn btn-secondary" onclick="downloadReport()">📥 DOWNLOAD</button>
-                    <button class="btn btn-secondary" onclick="window.print()">🖨️ PRINT</button>
+                    <button class="btn btn-secondary" onclick="downloadReport()">DOWNLOAD</button>
+                    <button class="btn btn-secondary" onclick="window.print()">PRINT</button>
                 </div>
             </div>
 
@@ -832,7 +1207,7 @@
             if (contracts.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-state-icon">📋</div>
+                        <div class="empty-state-icon">∅</div>
                         <p>No contracts yet. Add your first client to get started.</p>
                     </div>
                 `;
@@ -1018,7 +1393,7 @@
                         </select>
                     </td>
                     <td><input type="text" value="${escapeHtml(risk.mitigation)}" onchange="updateRisk('${escapeHtml(risk.id)}', 'mitigation', this.value)"></td>
-                    <td><button class="btn btn-secondary" onclick="deleteRisk('${escapeHtml(risk.id)}')">🗑️</button></td>
+                    <td><button class="btn btn-secondary" onclick="deleteRisk('${escapeHtml(risk.id)}')">×</button></td>
                 </tr>
             `).join('');
         }
@@ -1056,7 +1431,7 @@
                 <tr>
                     <td><input type="text" value="${escapeHtml(value.valueAdded)}" onchange="updateValue('${escapeHtml(value.id)}', 'valueAdded', this.value)"></td>
                     <td><input type="text" value="${escapeHtml(value.clientBenefit)}" onchange="updateValue('${escapeHtml(value.id)}', 'clientBenefit', this.value)"></td>
-                    <td><button class="btn btn-secondary" onclick="deleteValue('${escapeHtml(value.id)}')">🗑️</button></td>
+                    <td><button class="btn btn-secondary" onclick="deleteValue('${escapeHtml(value.id)}')">×</button></td>
                 </tr>
             `).join('');
         }
@@ -1140,15 +1515,15 @@
                 content += '<div style="margin-bottom: 2rem;"><h2 style="color: #FF8C00; margin-bottom: 1rem;">OPERATE FRAMEWORK</h2>';
 
                 if (operate.plan) {
-                    content += `<div style="margin-bottom: 1rem;"><h3 style="color: #3b82f6; font-size: 1.2rem;">📅 PLAN</h3><p>${escapeHtml(operate.plan).replace(/\n/g, '<br>')}</p></div>`;
+                    content += `<div style="margin-bottom: 1rem;"><h3 style="color: #3b82f6; font-size: 1.2rem;">PLAN</h3><p>${escapeHtml(operate.plan).replace(/\n/g, '<br>')}</p></div>`;
                 }
 
                 if (operate.execute) {
-                    content += `<div style="margin-bottom: 1rem;"><h3 style="color: #a855f7; font-size: 1.2rem;">⚡ EXECUTE</h3><p>${escapeHtml(operate.execute).replace(/\n/g, '<br>')}</p></div>`;
+                    content += `<div style="margin-bottom: 1rem;"><h3 style="color: #a855f7; font-size: 1.2rem;">EXECUTE</h3><p>${escapeHtml(operate.execute).replace(/\n/g, '<br>')}</p></div>`;
                 }
 
                 if (operate.report) {
-                    content += `<div style="margin-bottom: 1rem;"><h3 style="color: #22c55e; font-size: 1.2rem;">📢 REPORT</h3><p>${escapeHtml(operate.report).replace(/\n/g, '<br>')}</p></div>`;
+                    content += `<div style="margin-bottom: 1rem;"><h3 style="color: #22c55e; font-size: 1.2rem;">REPORT</h3><p>${escapeHtml(operate.report).replace(/\n/g, '<br>')}</p></div>`;
                 }
 
                 content += '</div>';
@@ -1156,7 +1531,7 @@
 
             if (includePrivate) {
                 if (risks.length > 0) {
-                    content += '<div style="margin-bottom: 2rem;"><h2 style="color: #FF8C00; margin-bottom: 1rem;">⚠️ RISK ASSESSMENT (PRIVATE)</h2>';
+                    content += '<div style="margin-bottom: 2rem;"><h2 style="color: #FF8C00; margin-bottom: 1rem;">RISK ASSESSMENT (PRIVATE)</h2>';
                     content += '<table style="width: 100%; border-collapse: collapse;">';
                     content += '<thead><tr><th style="border-bottom: 2px solid #ddd; padding: 0.5rem; text-align: left;">Description</th><th style="border-bottom: 2px solid #ddd; padding: 0.5rem; text-align: left;">Probability</th><th style="border-bottom: 2px solid #ddd; padding: 0.5rem; text-align: left;">Impact</th><th style="border-bottom: 2px solid #ddd; padding: 0.5rem; text-align: left;">Mitigation</th></tr></thead>';
                     content += '<tbody>';
@@ -1167,7 +1542,7 @@
                 }
 
                 if (values.length > 0) {
-                    content += '<div style="margin-bottom: 2rem;"><h2 style="color: #FF8C00; margin-bottom: 1rem;">💎 VALUE TRACKER (PRIVATE)</h2>';
+                    content += '<div style="margin-bottom: 2rem;"><h2 style="color: #FF8C00; margin-bottom: 1rem;">VALUE TRACKER (PRIVATE)</h2>';
                     content += '<table style="width: 100%; border-collapse: collapse;">';
                     content += '<thead><tr><th style="border-bottom: 2px solid #ddd; padding: 0.5rem; text-align: left;">Value Added</th><th style="border-bottom: 2px solid #ddd; padding: 0.5rem; text-align: left;">Client Benefit</th></tr></thead>';
                     content += '<tbody>';
