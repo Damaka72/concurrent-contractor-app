@@ -387,6 +387,28 @@
         .close-btn:hover {
             color: var(--gold);
         }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -658,29 +680,82 @@
         let currentContractId = null;
         let risks = [];
         let values = [];
+        let weeklySetup = {};
+        let reflectionData = {};
+        let operateData = {};
+
+        // Security: Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
         // Load data from localStorage
         function loadData() {
-            const saved = localStorage.getItem('tccData');
-            if (saved) {
-                const data = JSON.parse(saved);
-                contracts = data.contracts || [];
-                risks = data.risks || [];
-                values = data.values || [];
+            try {
+                const saved = localStorage.getItem('tccData');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    contracts = data.contracts || [];
+                    risks = data.risks || [];
+                    values = data.values || [];
+                    weeklySetup = data.weeklySetup || {};
+                    reflectionData = data.reflectionData || {};
+                    operateData = data.operateData || {};
+                }
+                renderContracts();
+                renderRisks();
+                renderValues();
+                updateSetupContractSelect();
+                loadWeeklySetup();
+                loadReflection();
+                loadOperate();
+            } catch (error) {
+                console.error('Error loading data from localStorage:', error);
+                showNotification('Error loading saved data. Starting fresh.', 'error');
             }
-            renderContracts();
-            renderRisks();
-            renderValues();
-            updateSetupContractSelect();
         }
 
         // Save data to localStorage
         function saveData() {
-            localStorage.setItem('tccData', JSON.stringify({
-                contracts,
-                risks,
-                values
-            }));
+            try {
+                localStorage.setItem('tccData', JSON.stringify({
+                    contracts,
+                    risks,
+                    values,
+                    weeklySetup,
+                    reflectionData,
+                    operateData
+                }));
+            } catch (error) {
+                console.error('Error saving data to localStorage:', error);
+                showNotification('Error saving data. You may be in private browsing mode.', 'error');
+            }
+        }
+
+        // Show notification instead of alert
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                background: ${type === 'error' ? '#dc2626' : type === 'success' ? '#16a34a' : '#f59e0b'};
+                color: white;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
 
         // Tab switching
@@ -706,12 +781,12 @@
         }
 
         function saveContract() {
-            const name = document.getElementById('contractName').value;
+            const name = document.getElementById('contractName').value.trim();
             const startDate = document.getElementById('contractStartDate').value;
             const dayRate = document.getElementById('contractDayRate').value;
 
             if (!name) {
-                alert('Please enter a client name');
+                showNotification('Please enter a client name', 'error');
                 return;
             }
 
@@ -727,6 +802,7 @@
             renderContracts();
             updateSetupContractSelect();
             closeModal('addContractModal');
+            showNotification('Contract added successfully!', 'success');
 
             // Clear form
             document.getElementById('contractName').value = '';
@@ -748,11 +824,11 @@
             }
 
             container.innerHTML = contracts.map(contract => `
-                <div class="contract-card" onclick="selectContract('${contract.id}')">
-                    <div class="contract-name">${contract.name}</div>
+                <div class="contract-card" onclick="selectContract('${escapeHtml(contract.id)}')">
+                    <div class="contract-name">${escapeHtml(contract.name)}</div>
                     <p style="color: #999; font-size: 0.875rem; margin-bottom: 1rem;">
-                        ${contract.startDate ? 'Started: ' + contract.startDate : 'Start date not set'}
-                        ${contract.dayRate ? ' | £' + contract.dayRate + '/day' : ''}
+                        ${contract.startDate ? 'Started: ' + escapeHtml(contract.startDate) : 'Start date not set'}
+                        ${contract.dayRate ? ' | £' + escapeHtml(contract.dayRate) + '/day' : ''}
                     </p>
                     <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.5rem;">
                         <span>Onboarding</span>
@@ -767,13 +843,13 @@
 
         function selectContract(id) {
             currentContractId = id;
-            alert('Contract selected! (Full contract details view coming soon)');
+            showNotification('Contract selected! Full contract details view coming soon.', 'info');
         }
 
         function updateSetupContractSelect() {
             const select = document.getElementById('setupContract');
             select.innerHTML = '<option value="">Select a client...</option>' +
-                contracts.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+                contracts.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join('');
         }
 
         // Risks
@@ -793,23 +869,23 @@
             const tbody = document.getElementById('risksBody');
             tbody.innerHTML = risks.map(risk => `
                 <tr>
-                    <td><input type="text" value="${risk.description}" onchange="updateRisk('${risk.id}', 'description', this.value)"></td>
+                    <td><input type="text" value="${escapeHtml(risk.description)}" onchange="updateRisk('${escapeHtml(risk.id)}', 'description', this.value)"></td>
                     <td>
-                        <select onchange="updateRisk('${risk.id}', 'probability', this.value)">
+                        <select onchange="updateRisk('${escapeHtml(risk.id)}', 'probability', this.value)">
                             <option ${risk.probability === 'low' ? 'selected' : ''}>Low</option>
                             <option ${risk.probability === 'medium' ? 'selected' : ''}>Medium</option>
                             <option ${risk.probability === 'high' ? 'selected' : ''}>High</option>
                         </select>
                     </td>
                     <td>
-                        <select onchange="updateRisk('${risk.id}', 'impact', this.value)">
+                        <select onchange="updateRisk('${escapeHtml(risk.id)}', 'impact', this.value)">
                             <option ${risk.impact === 'low' ? 'selected' : ''}>Low</option>
                             <option ${risk.impact === 'medium' ? 'selected' : ''}>Medium</option>
                             <option ${risk.impact === 'high' ? 'selected' : ''}>High</option>
                         </select>
                     </td>
-                    <td><input type="text" value="${risk.mitigation}" onchange="updateRisk('${risk.id}', 'mitigation', this.value)"></td>
-                    <td><button class="btn btn-secondary" onclick="deleteRisk('${risk.id}')">🗑️</button></td>
+                    <td><input type="text" value="${escapeHtml(risk.mitigation)}" onchange="updateRisk('${escapeHtml(risk.id)}', 'mitigation', this.value)"></td>
+                    <td><button class="btn btn-secondary" onclick="deleteRisk('${escapeHtml(risk.id)}')">🗑️</button></td>
                 </tr>
             `).join('');
         }
@@ -843,9 +919,9 @@
             const tbody = document.getElementById('valueBody');
             tbody.innerHTML = values.map(value => `
                 <tr>
-                    <td><input type="text" value="${value.valueAdded}" onchange="updateValue('${value.id}', 'valueAdded', this.value)"></td>
-                    <td><input type="text" value="${value.clientBenefit}" onchange="updateValue('${value.id}', 'clientBenefit', this.value)"></td>
-                    <td><button class="btn btn-secondary" onclick="deleteValue('${value.id}')">🗑️</button></td>
+                    <td><input type="text" value="${escapeHtml(value.valueAdded)}" onchange="updateValue('${escapeHtml(value.id)}', 'valueAdded', this.value)"></td>
+                    <td><input type="text" value="${escapeHtml(value.clientBenefit)}" onchange="updateValue('${escapeHtml(value.id)}', 'clientBenefit', this.value)"></td>
+                    <td><button class="btn btn-secondary" onclick="deleteValue('${escapeHtml(value.id)}')">🗑️</button></td>
                 </tr>
             `).join('');
         }
@@ -879,22 +955,163 @@
             });
         });
 
+        // Load functions
+        function loadWeeklySetup() {
+            if (weeklySetup.contractId) {
+                document.getElementById('setupContract').value = weeklySetup.contractId;
+            }
+            if (weeklySetup.weekCommencing) {
+                document.getElementById('setupWeekCommencing').value = weeklySetup.weekCommencing;
+            }
+        }
+
+        function loadReflection() {
+            if (reflectionData.wentWell) {
+                document.getElementById('reflectWentWell').value = reflectionData.wentWell;
+            }
+            if (reflectionData.doDifferently) {
+                document.getElementById('reflectDoDifferently').value = reflectionData.doDifferently;
+            }
+            if (reflectionData.keyLearning) {
+                document.getElementById('reflectKeyLearning').value = reflectionData.keyLearning;
+            }
+            if (reflectionData.workload) {
+                const btn = document.querySelector(`[data-workload="${reflectionData.workload}"]`);
+                if (btn) btn.classList.add('active');
+            }
+            if (reflectionData.energy) {
+                const btn = document.querySelector(`[data-energy="${reflectionData.energy}"]`);
+                if (btn) btn.classList.add('active');
+            }
+        }
+
+        function loadOperate() {
+            if (operateData.plan) {
+                document.getElementById('operatePlan').value = operateData.plan;
+            }
+            if (operateData.execute) {
+                document.getElementById('operateExecute').value = operateData.execute;
+            }
+            if (operateData.report) {
+                document.getElementById('operateReport').value = operateData.report;
+            }
+        }
+
         // Save functions
         function saveWeeklySetup() {
-            alert('Weekly setup saved! (Full implementation coming soon)');
+            weeklySetup = {
+                contractId: document.getElementById('setupContract').value,
+                weekCommencing: document.getElementById('setupWeekCommencing').value
+            };
+            saveData();
+            updateReportPreview();
+            showNotification('Weekly setup saved successfully!', 'success');
         }
 
         function saveReflection() {
-            alert('Reflection saved! (Full implementation coming soon)');
+            const workloadBtn = document.querySelector('[data-workload].active');
+            const energyBtn = document.querySelector('[data-energy].active');
+
+            reflectionData = {
+                wentWell: document.getElementById('reflectWentWell').value,
+                doDifferently: document.getElementById('reflectDoDifferently').value,
+                keyLearning: document.getElementById('reflectKeyLearning').value,
+                workload: workloadBtn ? workloadBtn.dataset.workload : null,
+                energy: energyBtn ? energyBtn.dataset.energy : null
+            };
+            saveData();
+            updateReportPreview();
+            showNotification('Reflection saved successfully!', 'success');
         }
 
         function saveOperate() {
-            alert('OPERATE plan saved! (Full implementation coming soon)');
+            operateData = {
+                plan: document.getElementById('operatePlan').value,
+                execute: document.getElementById('operateExecute').value,
+                report: document.getElementById('operateReport').value
+            };
+            saveData();
+            updateReportPreview();
+            showNotification('OPERATE plan saved successfully!', 'success');
+        }
+
+        function updateReportPreview() {
+            const includePrivate = document.getElementById('includePrivate').checked;
+            const contract = contracts.find(c => c.id === weeklySetup.contractId);
+
+            document.getElementById('reportClient').textContent = contract ? contract.name : 'Unspecified Client';
+            document.getElementById('reportWeek').textContent = weeklySetup.weekCommencing
+                ? `WEEK COMMENCING: ${weeklySetup.weekCommencing}`
+                : 'WEEK COMMENCING: [DATE]';
+
+            let content = '<h2 style="color: var(--orange); margin-top: 2rem;">OPERATE FRAMEWORK</h2>';
+
+            if (operateData.plan || operateData.execute || operateData.report) {
+                if (operateData.plan) {
+                    content += `<h3 style="margin-top: 1.5rem;">Plan</h3><p style="white-space: pre-wrap;">${escapeHtml(operateData.plan)}</p>`;
+                }
+                if (operateData.execute) {
+                    content += `<h3 style="margin-top: 1.5rem;">Execute</h3><p style="white-space: pre-wrap;">${escapeHtml(operateData.execute)}</p>`;
+                }
+                if (operateData.report) {
+                    content += `<h3 style="margin-top: 1.5rem;">Report</h3><p style="white-space: pre-wrap;">${escapeHtml(operateData.report)}</p>`;
+                }
+            }
+
+            if (includePrivate) {
+                content += '<h2 style="color: var(--orange); margin-top: 2rem;">REFLECTION (PRIVATE)</h2>';
+                if (reflectionData.wentWell) {
+                    content += `<h3 style="margin-top: 1.5rem; color: #22c55e;">Went Well</h3><p style="white-space: pre-wrap;">${escapeHtml(reflectionData.wentWell)}</p>`;
+                }
+                if (reflectionData.doDifferently) {
+                    content += `<h3 style="margin-top: 1.5rem; color: var(--orange);">Do Differently</h3><p style="white-space: pre-wrap;">${escapeHtml(reflectionData.doDifferently)}</p>`;
+                }
+                if (reflectionData.keyLearning) {
+                    content += `<h3 style="margin-top: 1.5rem; color: #3b82f6;">Key Learning</h3><p style="white-space: pre-wrap;">${escapeHtml(reflectionData.keyLearning)}</p>`;
+                }
+            }
+
+            if (!operateData.plan && !operateData.execute && !operateData.report && !includePrivate) {
+                content = '<p style="text-align: center; color: #666;">Configure your weekly setup to generate report content.</p>';
+            }
+
+            document.getElementById('reportContent').innerHTML = content;
         }
 
         function downloadReport() {
-            alert('Report download feature coming soon!');
+            updateReportPreview();
+            const reportHtml = document.getElementById('reportPreview').innerHTML;
+            const fullHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Status Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+        @media print { body { -webkit-print-color-adjust: exact; } }
+    </style>
+</head>
+<body>
+${reportHtml}
+</body>
+</html>`;
+
+            const blob = new Blob([fullHtml], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `weekly-report-${weeklySetup.weekCommencing || 'draft'}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification('Report downloaded successfully!', 'success');
         }
+
+        // Update report preview when checkbox changes
+        document.getElementById('includePrivate').addEventListener('change', updateReportPreview);
 
         // Initialize
         loadData();
