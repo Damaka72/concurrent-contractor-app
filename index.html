@@ -49,6 +49,8 @@
             --green-dark: #16A34A;
             --purple: #A855F7;
             --purple-dark: #9333EA;
+            --red: #EF4444;
+            --red-dark: #DC2626;
 
             /* Shadows & Depth */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
@@ -140,13 +142,64 @@
             padding: 3rem 2.5rem;
         }
 
+        /* Contract Context Bar */
+        .contract-context-bar {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--dark) 100%);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contract-context-bar.hidden {
+            display: none;
+        }
+
+        .context-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .context-label {
+            color: var(--gray-400);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .context-contract-name {
+            font-family: 'Space Grotesk', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .context-week {
+            color: var(--gray-300);
+            font-size: 0.875rem;
+        }
+
+        .context-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
         .tabs {
             display: flex;
             gap: 0.75rem;
             flex-wrap: wrap;
             border-bottom: 2px solid var(--gray-800);
             padding-bottom: 0;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             position: relative;
         }
 
@@ -201,6 +254,16 @@
             background: var(--gold-gradient);
             box-shadow: 0 0 12px var(--gold-glow);
             border-radius: 3px 3px 0 0;
+        }
+
+        .tab.requires-contract {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .tab.requires-contract.enabled {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .tab-content {
@@ -265,6 +328,20 @@
             background: var(--gray-900);
             color: var(--gold-light);
             box-shadow: var(--shadow-md);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, var(--red-dark) 0%, #b91c1c 100%);
+            color: white;
         }
 
         .card {
@@ -373,6 +450,18 @@
             text-transform: uppercase;
             box-shadow: var(--shadow-sm);
             border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .badge-green {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+            color: #d1fae5;
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .badge-blue {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+            color: #dbeafe;
+            border-color: rgba(59, 130, 246, 0.2);
         }
 
         .progress-bar {
@@ -614,6 +703,15 @@
             box-shadow: var(--shadow-xl);
         }
 
+        .contract-card.selected {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .contract-card.selected::before {
+            opacity: 1;
+        }
+
         .contract-name {
             font-family: 'Space Grotesk', Georgia, serif;
             font-size: 1.375rem;
@@ -626,6 +724,18 @@
             letter-spacing: -0.01em;
         }
 
+        .contract-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .contract-meta-item {
+            color: var(--gray-400);
+            font-size: 0.8125rem;
+        }
+
         .brand-logo {
             max-width: 100%;
             height: auto;
@@ -635,6 +745,98 @@
             max-width: 400px;
             height: auto;
             margin-bottom: 1.5rem;
+        }
+
+        /* Onboarding Checklist */
+        .onboarding-section {
+            margin-top: 1.5rem;
+        }
+
+        .onboarding-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .onboarding-category-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .onboarding-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: var(--gray-900);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .onboarding-item:hover {
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .onboarding-item.completed {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .onboarding-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-600);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .onboarding-item.completed .onboarding-checkbox {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+
+        .onboarding-item-text {
+            flex: 1;
+            color: var(--gray-300);
+            font-size: 0.9375rem;
+        }
+
+        .onboarding-item.completed .onboarding-item-text {
+            color: var(--green);
+            text-decoration: line-through;
+            text-decoration-color: rgba(34, 197, 94, 0.5);
+        }
+
+        /* Week Selector */
+        .week-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--gray-900);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-800);
+        }
+
+        .week-selector label {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .week-selector input {
+            max-width: 200px;
         }
 
         @media (max-width: 768px) {
@@ -692,6 +894,17 @@
             .contract-card {
                 padding: 1.5rem;
             }
+
+            .contract-context-bar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .context-actions {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         .modal {
@@ -716,8 +929,9 @@
 
         .modal.active {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            padding-top: 5vh;
         }
 
         .modal-content {
@@ -725,12 +939,16 @@
             border: 2px solid var(--gray-700);
             border-radius: var(--radius-lg);
             padding: 2.5rem;
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
             box-shadow: var(--shadow-xl);
             animation: slideUp var(--transition-base);
+        }
+
+        .modal-content.large {
+            max-width: 900px;
         }
 
         @keyframes slideUp {
@@ -794,6 +1012,44 @@
             font-size: 1.25rem;
             font-weight: 700;
         }
+
+        /* Tab button actions */
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-800);
+        }
+
+        /* Contract summary stats */
+        .contract-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--gray-900);
+            border-radius: var(--radius-sm);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
 <body>
@@ -805,23 +1061,41 @@
     </div>
 
     <div class="container">
+        <!-- Contract Context Bar -->
+        <div class="contract-context-bar hidden" id="contractContextBar">
+            <div class="context-info">
+                <div>
+                    <div class="context-label">Active Contract</div>
+                    <div class="context-contract-name" id="contextContractName">-</div>
+                </div>
+                <div class="context-week" id="contextWeek"></div>
+            </div>
+            <div class="context-actions">
+                <button class="btn btn-secondary btn-small" onclick="openContractDetails()">View Details</button>
+                <button class="btn btn-secondary btn-small" onclick="clearActiveContract()">Switch Contract</button>
+            </div>
+        </div>
+
         <div class="tabs">
             <button class="tab active" data-tab="contracts">
                 CONTRACTS
             </button>
-            <button class="tab" data-tab="setup">
+            <button class="tab requires-contract" data-tab="onboarding">
+                ONBOARDING
+            </button>
+            <button class="tab requires-contract" data-tab="setup">
                 SETUP
             </button>
-            <button class="tab" data-tab="reflect">
+            <button class="tab requires-contract" data-tab="reflect">
                 REFLECT
             </button>
-            <button class="tab" data-tab="operate">
+            <button class="tab requires-contract" data-tab="operate">
                 OPERATE
             </button>
-            <button class="tab" data-tab="trackers">
+            <button class="tab requires-contract" data-tab="trackers">
                 TRACKERS
             </button>
-            <button class="tab" data-tab="report">
+            <button class="tab requires-contract" data-tab="report">
                 REPORT
             </button>
         </div>
@@ -831,12 +1105,36 @@
             <div class="section-header">
                 <div>
                     <h2>CONTRACT PORTFOLIO</h2>
-                    <p style="color: #999;">Manage active engagements and onboarding checklists.</p>
+                    <p style="color: #999;">Manage active engagements. Click a contract to select it and access all features.</p>
                 </div>
                 <button class="btn" onclick="showAddContractModal()">+ NEW CONTRACT</button>
             </div>
 
             <div id="contractsList" class="grid grid-2"></div>
+        </div>
+
+        <!-- ONBOARDING TAB -->
+        <div class="tab-content" id="onboarding">
+            <div class="section-header">
+                <div>
+                    <h2>CONTRACT ONBOARDING</h2>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Complete these essential steps to set up your contract for success</p>
+                </div>
+            </div>
+
+            <div id="onboardingSuccessMessage"></div>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="margin-bottom: 0;">Onboarding Progress</h3>
+                    <span style="color: var(--gold); font-weight: 600;" id="onboardingProgressText">0/22 Complete</span>
+                </div>
+                <div class="progress-bar" style="height: 14px;">
+                    <div class="progress-fill" id="onboardingProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="onboardingChecklist"></div>
         </div>
 
         <!-- SETUP TAB -->
@@ -851,22 +1149,14 @@
             <div id="setupSuccessMessage"></div>
 
             <div class="card">
-                <div class="grid grid-2">
-                    <div class="form-group">
-                        <label>SELECT CONTRACT</label>
-                        <select id="setupContract">
-                            <option value="">Select a client...</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>WEEK COMMENCING</label>
-                        <input type="date" id="setupWeekCommencing">
-                    </div>
+                <div class="form-group">
+                    <label>WEEK COMMENCING</label>
+                    <input type="date" id="setupWeekCommencing">
                 </div>
 
                 <div class="info-box">
                     <h4>THE RHYTHM</h4>
-                    <p style="color: #999;">Consistency builds trust. Configure your context here to populate your weekly delivery report.</p>
+                    <p style="color: #999;">Consistency builds trust. Configure your week here to track reflections, OPERATE plans, and generate your weekly delivery report for this specific contract.</p>
                 </div>
 
                 <button class="btn" onclick="saveWeeklySetup()">Save Configuration</button>
@@ -878,7 +1168,7 @@
             <div class="section-header">
                 <div>
                     <h2>WEEKLY REFLECTION</h2>
-                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Review your week and track progress</p>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Review your week for this contract</p>
                 </div>
             </div>
 
@@ -887,17 +1177,17 @@
             <div class="grid grid-3" style="margin-bottom: 2rem;">
                 <div class="reflection-card green">
                     <h3 style="color: #22c55e;">WENT WELL</h3>
-                    <textarea id="reflectWentWell" placeholder="Wins & Achievements..."></textarea>
+                    <textarea id="reflectWentWell" placeholder="Wins & Achievements for this contract..."></textarea>
                 </div>
 
                 <div class="reflection-card orange">
                     <h3 style="color: var(--orange);">DO DIFFERENTLY</h3>
-                    <textarea id="reflectDoDifferently" placeholder="Improvements..."></textarea>
+                    <textarea id="reflectDoDifferently" placeholder="Improvements for this contract..."></textarea>
                 </div>
 
                 <div class="reflection-card blue">
                     <h3 style="color: #3b82f6;">KEY LEARNING</h3>
-                    <textarea id="reflectKeyLearning" placeholder="Insights..."></textarea>
+                    <textarea id="reflectKeyLearning" placeholder="Insights from this contract..."></textarea>
                 </div>
             </div>
 
@@ -933,7 +1223,7 @@
             <div class="section-header">
                 <div>
                     <h2>OPERATE FRAMEWORK</h2>
-                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Plan, Execute, and Report on your weekly objectives</p>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Plan, Execute, and Report on your weekly objectives for this contract</p>
                 </div>
             </div>
 
@@ -942,7 +1232,7 @@
             <div class="grid grid-2">
                 <div class="operate-card blue">
                     <h3>PLAN</h3>
-                    <textarea id="operatePlan" placeholder="1-3 Key Outcomes & Tasks..."></textarea>
+                    <textarea id="operatePlan" placeholder="1-3 Key Outcomes & Tasks for this contract..."></textarea>
                 </div>
 
                 <div class="operate-card purple">
@@ -952,7 +1242,7 @@
 
                 <div class="operate-card green">
                     <h3>REPORT</h3>
-                    <textarea id="operateReport" placeholder="Proactive reporting status..."></textarea>
+                    <textarea id="operateReport" placeholder="Proactive reporting status for this client..."></textarea>
                 </div>
             </div>
 
@@ -964,7 +1254,7 @@
             <div class="section-header">
                 <div>
                     <h2>TRACKERS</h2>
-                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Track risks and value delivery</p>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Track risks and value delivery for this contract</p>
                 </div>
             </div>
 
@@ -993,6 +1283,9 @@
                         </thead>
                         <tbody id="risksBody"></tbody>
                     </table>
+                    <div id="risksEmptyState" class="empty-state" style="display: none; padding: 2rem;">
+                        <p>No risks tracked for this contract yet.</p>
+                    </div>
                 </div>
             </div>
 
@@ -1019,6 +1312,9 @@
                         </thead>
                         <tbody id="valueBody"></tbody>
                     </table>
+                    <div id="valuesEmptyState" class="empty-state" style="display: none; padding: 2rem;">
+                        <p>No value items tracked for this contract yet.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1028,7 +1324,7 @@
             <div class="section-header">
                 <div>
                     <h2>WEEKLY STATUS REPORT</h2>
-                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Generate and export your professional weekly report</p>
+                    <p style="color: var(--gray-400); margin-top: 0.5rem;">Generate and export your professional weekly report for this contract</p>
                 </div>
                 <div style="display: flex; gap: 1rem;">
                     <button class="btn btn-secondary" onclick="downloadReport()">DOWNLOAD</button>
@@ -1088,9 +1384,37 @@
                 <input type="number" id="contractDayRate">
             </div>
 
-            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+            <div class="form-group">
+                <label>CONTRACT END DATE (OPTIONAL)</label>
+                <input type="date" id="contractEndDate">
+            </div>
+
+            <div class="form-group">
+                <label>NOTES</label>
+                <textarea id="contractNotes" placeholder="Any additional notes about this contract..." style="min-height: 80px;"></textarea>
+            </div>
+
+            <div class="modal-actions">
                 <button class="btn btn-secondary" onclick="closeModal('addContractModal')">Cancel</button>
                 <button class="btn" onclick="saveContract()">Save Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contract Details Modal -->
+    <div class="modal" id="contractDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="detailsContractName">Contract Details</h3>
+                <button class="close-btn" onclick="closeModal('contractDetailsModal')">&times;</button>
+            </div>
+
+            <div id="contractDetailsContent"></div>
+
+            <div class="modal-actions">
+                <button class="btn btn-danger" onclick="deleteContract()">Delete Contract</button>
+                <button class="btn btn-secondary" onclick="closeModal('contractDetailsModal')">Close</button>
+                <button class="btn" onclick="saveContractEdits()">Save Changes</button>
             </div>
         </div>
     </div>
@@ -1107,53 +1431,172 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // Data storage
+        // Onboarding checklist items - 22 items across categories
+        const ONBOARDING_CHECKLIST = {
+            'Administrative Setup': [
+                { id: 'admin-1', text: 'Contract/agreement signed and filed' },
+                { id: 'admin-2', text: 'IR35 status confirmed and documented' },
+                { id: 'admin-3', text: 'Invoice details and payment terms agreed' },
+                { id: 'admin-4', text: 'Notice period and termination clauses understood' }
+            ],
+            'Access & Equipment': [
+                { id: 'access-1', text: 'Laptop/equipment received or confirmed' },
+                { id: 'access-2', text: 'Email and calendar access set up' },
+                { id: 'access-3', text: 'Code repositories and dev tools access' },
+                { id: 'access-4', text: 'VPN and security credentials configured' },
+                { id: 'access-5', text: 'Communication tools (Slack/Teams) joined' }
+            ],
+            'Stakeholder Introduction': [
+                { id: 'stake-1', text: 'Line manager introduction meeting completed' },
+                { id: 'stake-2', text: 'Key stakeholders identified and introduced' },
+                { id: 'stake-3', text: 'Team members introduction completed' },
+                { id: 'stake-4', text: 'Reporting structure understood' }
+            ],
+            'Project Understanding': [
+                { id: 'project-1', text: 'Project/product overview documentation reviewed' },
+                { id: 'project-2', text: 'Technical architecture understood' },
+                { id: 'project-3', text: 'Current sprint/iteration context understood' },
+                { id: 'project-4', text: 'Key deliverables and milestones identified' },
+                { id: 'project-5', text: 'Definition of done/success criteria agreed' }
+            ],
+            'Ways of Working': [
+                { id: 'ways-1', text: 'Working hours and availability expectations agreed' },
+                { id: 'ways-2', text: 'Meeting cadence and ceremonies understood' },
+                { id: 'ways-3', text: 'Communication preferences established' },
+                { id: 'ways-4', text: 'First week objectives set and agreed' }
+            ]
+        };
+
+        // Data storage - contract-scoped architecture
         let contracts = [];
         let currentContractId = null;
-        let risks = [];
-        let values = [];
-        let weeklySetup = {};
-        let reflection = {};
-        let operate = {};
 
-        // Load data from localStorage
+        // Load data from localStorage with migration support
         function loadData() {
             const saved = localStorage.getItem('tccData');
             if (saved) {
                 const data = JSON.parse(saved);
-                contracts = data.contracts || [];
-                risks = data.risks || [];
-                values = data.values || [];
-                weeklySetup = data.weeklySetup || {};
-                reflection = data.reflection || {};
-                operate = data.operate || {};
+
+                // Check if we need to migrate from old format
+                if (data.contracts && data.contracts.length > 0 && !data.contracts[0].hasOwnProperty('onboarding')) {
+                    // Migration: convert old format to new contract-scoped format
+                    contracts = data.contracts.map(contract => ({
+                        ...contract,
+                        onboarding: {},
+                        weeklyData: {},
+                        operate: {},
+                        risks: [],
+                        values: [],
+                        notes: ''
+                    }));
+
+                    // If there was global data, assign to first contract
+                    if (contracts.length > 0 && (data.operate || data.risks || data.values || data.reflection)) {
+                        const firstContract = contracts[0];
+                        if (data.operate) firstContract.operate = data.operate;
+                        if (data.risks) firstContract.risks = data.risks;
+                        if (data.values) firstContract.values = data.values;
+                        if (data.reflection && data.weeklySetup?.weekCommencing) {
+                            firstContract.weeklyData[data.weeklySetup.weekCommencing] = {
+                                reflection: data.reflection,
+                                weekCommencing: data.weeklySetup.weekCommencing
+                            };
+                        }
+                    }
+
+                    saveData();
+                } else {
+                    contracts = data.contracts || [];
+                }
+
+                currentContractId = data.currentContractId || null;
             }
+
             renderContracts();
-            renderRisks();
-            renderValues();
-            updateSetupContractSelect();
-            loadWeeklySetup();
-            loadReflection();
-            loadOperate();
-            updateReportPreview();
+            updateTabStates();
+            updateContextBar();
+
+            if (currentContractId) {
+                loadContractData();
+            }
         }
 
         // Save data to localStorage
         function saveData() {
             localStorage.setItem('tccData', JSON.stringify({
                 contracts,
-                risks,
-                values,
-                weeklySetup,
-                reflection,
-                operate
+                currentContractId
             }));
+        }
+
+        // Get current contract
+        function getCurrentContract() {
+            return contracts.find(c => c.id === currentContractId);
+        }
+
+        // Get current week key
+        function getCurrentWeekKey() {
+            const contract = getCurrentContract();
+            if (!contract) return null;
+
+            // Find the most recent week configured for this contract
+            const weeks = Object.keys(contract.weeklyData || {}).sort().reverse();
+            return weeks[0] || null;
+        }
+
+        // Get current week data
+        function getCurrentWeekData() {
+            const contract = getCurrentContract();
+            if (!contract) return null;
+
+            const weekKey = getCurrentWeekKey();
+            if (!weekKey) return null;
+
+            return contract.weeklyData[weekKey];
+        }
+
+        // Update tab states based on contract selection
+        function updateTabStates() {
+            const hasContract = currentContractId !== null;
+            document.querySelectorAll('.tab.requires-contract').forEach(tab => {
+                if (hasContract) {
+                    tab.classList.add('enabled');
+                } else {
+                    tab.classList.remove('enabled');
+                }
+            });
+        }
+
+        // Update context bar
+        function updateContextBar() {
+            const bar = document.getElementById('contractContextBar');
+            const contract = getCurrentContract();
+
+            if (contract) {
+                bar.classList.remove('hidden');
+                document.getElementById('contextContractName').textContent = contract.name;
+
+                const weekKey = getCurrentWeekKey();
+                if (weekKey) {
+                    document.getElementById('contextWeek').textContent = `Week of ${weekKey}`;
+                } else {
+                    document.getElementById('contextWeek').textContent = 'No week configured';
+                }
+            } else {
+                bar.classList.add('hidden');
+            }
         }
 
         // Tab switching
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 const tabName = tab.dataset.tab;
+
+                // Check if tab requires contract
+                if (tab.classList.contains('requires-contract') && !tab.classList.contains('enabled')) {
+                    alert('Please select a contract first from the CONTRACTS tab.');
+                    return;
+                }
 
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
@@ -1166,6 +1609,11 @@
         // Contracts
         function showAddContractModal() {
             document.getElementById('addContractModal').classList.add('active');
+            document.getElementById('contractName').value = '';
+            document.getElementById('contractStartDate').value = '';
+            document.getElementById('contractDayRate').value = '';
+            document.getElementById('contractEndDate').value = '';
+            document.getElementById('contractNotes').value = '';
         }
 
         function closeModal(modalId) {
@@ -1176,6 +1624,8 @@
             const name = document.getElementById('contractName').value;
             const startDate = document.getElementById('contractStartDate').value;
             const dayRate = document.getElementById('contractDayRate').value;
+            const endDate = document.getElementById('contractEndDate').value;
+            const notes = document.getElementById('contractNotes').value;
 
             if (!name) {
                 alert('Please enter a client name');
@@ -1187,18 +1637,19 @@
                 name,
                 startDate,
                 dayRate,
-                onboardingProgress: 0
+                endDate,
+                notes,
+                onboarding: {},
+                weeklyData: {},
+                operate: {},
+                risks: [],
+                values: [],
+                createdAt: new Date().toISOString()
             });
 
             saveData();
             renderContracts();
-            updateSetupContractSelect();
             closeModal('addContractModal');
-
-            // Clear form
-            document.getElementById('contractName').value = '';
-            document.getElementById('contractStartDate').value = '';
-            document.getElementById('contractDayRate').value = '';
         }
 
         function renderContracts() {
@@ -1206,7 +1657,7 @@
 
             if (contracts.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-state">
+                    <div class="empty-state" style="grid-column: 1 / -1;">
                         <div class="empty-state-icon">∅</div>
                         <p>No contracts yet. Add your first client to get started.</p>
                     </div>
@@ -1214,85 +1665,303 @@
                 return;
             }
 
-            container.innerHTML = contracts.map(contract => `
-                <div class="contract-card" onclick="selectContract('${escapeHtml(contract.id)}')">
-                    <div class="contract-name">${escapeHtml(contract.name)}</div>
-                    <p style="color: #999; font-size: 0.875rem; margin-bottom: 1rem;">
-                        ${contract.startDate ? 'Started: ' + escapeHtml(contract.startDate) : 'Start date not set'}
-                        ${contract.dayRate ? ' | £' + escapeHtml(contract.dayRate) + '/day' : ''}
-                    </p>
+            container.innerHTML = contracts.map(contract => {
+                const onboardingComplete = Object.values(contract.onboarding || {}).filter(v => v).length;
+                const totalOnboarding = 22;
+                const isSelected = contract.id === currentContractId;
+                const riskCount = (contract.risks || []).length;
+                const valueCount = (contract.values || []).length;
+
+                return `
+                <div class="contract-card ${isSelected ? 'selected' : ''}" onclick="selectContract('${escapeHtml(contract.id)}')">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div class="contract-name">${escapeHtml(contract.name)}</div>
+                        ${isSelected ? '<span class="badge badge-green">ACTIVE</span>' : ''}
+                    </div>
+                    <div class="contract-meta">
+                        ${contract.startDate ? `<span class="contract-meta-item">Started: ${escapeHtml(contract.startDate)}</span>` : ''}
+                        ${contract.dayRate ? `<span class="contract-meta-item">£${escapeHtml(contract.dayRate)}/day</span>` : ''}
+                        ${contract.endDate ? `<span class="contract-meta-item">Ends: ${escapeHtml(contract.endDate)}</span>` : ''}
+                    </div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.5rem;">
                         <span>Onboarding</span>
-                        <span style="color: var(--gold);">${escapeHtml(contract.onboardingProgress)}/22 Complete</span>
+                        <span style="color: var(--gold);">${onboardingComplete}/${totalOnboarding} Complete</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${(contract.onboardingProgress/22)*100}%"></div>
+                        <div class="progress-fill" style="width: ${(onboardingComplete/totalOnboarding)*100}%"></div>
+                    </div>
+                    <div class="contract-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${riskCount}</div>
+                            <div class="stat-label">Risks</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${valueCount}</div>
+                            <div class="stat-label">Value Items</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${Object.keys(contract.weeklyData || {}).length}</div>
+                            <div class="stat-label">Weeks Tracked</div>
+                        </div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function selectContract(id) {
             currentContractId = id;
-            alert('Contract selected! (Full contract details view coming soon)');
+            saveData();
+            renderContracts();
+            updateTabStates();
+            updateContextBar();
+            loadContractData();
+
+            // Show feedback
+            const contract = getCurrentContract();
+            if (contract) {
+                // Switch to onboarding tab if not complete, otherwise to setup
+                const onboardingComplete = Object.values(contract.onboarding || {}).filter(v => v).length;
+                if (onboardingComplete < 22) {
+                    switchToTab('onboarding');
+                } else {
+                    switchToTab('setup');
+                }
+            }
         }
 
-        function updateSetupContractSelect() {
-            const select = document.getElementById('setupContract');
-            select.innerHTML = '<option value="">Select a client...</option>' +
-                contracts.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join('');
+        function clearActiveContract() {
+            currentContractId = null;
+            saveData();
+            renderContracts();
+            updateTabStates();
+            updateContextBar();
+            switchToTab('contracts');
+        }
+
+        function switchToTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Load all contract-specific data into forms
+        function loadContractData() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            renderOnboardingChecklist();
+            loadWeeklySetup();
+            loadReflection();
+            loadOperate();
+            renderRisks();
+            renderValues();
+            updateReportPreview();
+        }
+
+        // Contract Details Modal
+        function openContractDetails() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            document.getElementById('detailsContractName').textContent = contract.name;
+
+            const content = document.getElementById('contractDetailsContent');
+            content.innerHTML = `
+                <div class="form-group">
+                    <label>CLIENT NAME *</label>
+                    <input type="text" id="editContractName" value="${escapeHtml(contract.name)}">
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label>START DATE</label>
+                        <input type="date" id="editContractStartDate" value="${escapeHtml(contract.startDate || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>END DATE</label>
+                        <input type="date" id="editContractEndDate" value="${escapeHtml(contract.endDate || '')}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>DAY RATE (£)</label>
+                    <input type="number" id="editContractDayRate" value="${escapeHtml(contract.dayRate || '')}">
+                </div>
+
+                <div class="form-group">
+                    <label>NOTES</label>
+                    <textarea id="editContractNotes" style="min-height: 100px;">${escapeHtml(contract.notes || '')}</textarea>
+                </div>
+
+                <div class="info-box">
+                    <h4>CONTRACT STATISTICS</h4>
+                    <p style="color: #999; margin-bottom: 0.5rem;">
+                        <strong>Onboarding:</strong> ${Object.values(contract.onboarding || {}).filter(v => v).length}/22 items complete
+                    </p>
+                    <p style="color: #999; margin-bottom: 0.5rem;">
+                        <strong>Weeks Tracked:</strong> ${Object.keys(contract.weeklyData || {}).length}
+                    </p>
+                    <p style="color: #999; margin-bottom: 0.5rem;">
+                        <strong>Risks:</strong> ${(contract.risks || []).length} items
+                    </p>
+                    <p style="color: #999; margin-bottom: 0;">
+                        <strong>Value Items:</strong> ${(contract.values || []).length} items
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('contractDetailsModal').classList.add('active');
+        }
+
+        function saveContractEdits() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            contract.name = document.getElementById('editContractName').value;
+            contract.startDate = document.getElementById('editContractStartDate').value;
+            contract.endDate = document.getElementById('editContractEndDate').value;
+            contract.dayRate = document.getElementById('editContractDayRate').value;
+            contract.notes = document.getElementById('editContractNotes').value;
+
+            saveData();
+            renderContracts();
+            updateContextBar();
+            closeModal('contractDetailsModal');
+        }
+
+        function deleteContract() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            if (!confirm(`Are you sure you want to delete "${contract.name}"? This will permanently delete all associated data including onboarding progress, weekly data, risks, and value items.`)) {
+                return;
+            }
+
+            contracts = contracts.filter(c => c.id !== currentContractId);
+            currentContractId = null;
+
+            saveData();
+            renderContracts();
+            updateTabStates();
+            updateContextBar();
+            closeModal('contractDetailsModal');
+            switchToTab('contracts');
+        }
+
+        // Onboarding
+        function renderOnboardingChecklist() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const container = document.getElementById('onboardingChecklist');
+            let html = '';
+
+            for (const [category, items] of Object.entries(ONBOARDING_CHECKLIST)) {
+                html += `<div class="onboarding-category">
+                    <div class="onboarding-category-title">${escapeHtml(category)}</div>`;
+
+                for (const item of items) {
+                    const isComplete = contract.onboarding[item.id] === true;
+                    html += `
+                        <div class="onboarding-item ${isComplete ? 'completed' : ''}" onclick="toggleOnboardingItem('${escapeHtml(item.id)}')">
+                            <div class="onboarding-checkbox">${isComplete ? '✓' : ''}</div>
+                            <span class="onboarding-item-text">${escapeHtml(item.text)}</span>
+                        </div>
+                    `;
+                }
+
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+            updateOnboardingProgress();
+        }
+
+        function toggleOnboardingItem(itemId) {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            contract.onboarding[itemId] = !contract.onboarding[itemId];
+            saveData();
+            renderOnboardingChecklist();
+            renderContracts();
+        }
+
+        function updateOnboardingProgress() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const complete = Object.values(contract.onboarding || {}).filter(v => v).length;
+            const total = 22;
+            const percentage = (complete / total) * 100;
+
+            document.getElementById('onboardingProgressText').textContent = `${complete}/${total} Complete`;
+            document.getElementById('onboardingProgressBar').style.width = `${percentage}%`;
         }
 
         // Weekly Setup
         function loadWeeklySetup() {
-            if (weeklySetup.contractId) {
-                document.getElementById('setupContract').value = weeklySetup.contractId;
-            }
-            if (weeklySetup.weekCommencing) {
-                document.getElementById('setupWeekCommencing').value = weeklySetup.weekCommencing;
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const weekKey = getCurrentWeekKey();
+            if (weekKey) {
+                document.getElementById('setupWeekCommencing').value = weekKey;
+            } else {
+                // Default to current week's Monday
+                const today = new Date();
+                const monday = new Date(today);
+                monday.setDate(today.getDate() - today.getDay() + 1);
+                document.getElementById('setupWeekCommencing').value = monday.toISOString().split('T')[0];
             }
         }
 
         function saveWeeklySetup() {
-            const contractId = document.getElementById('setupContract').value;
-            const weekCommencing = document.getElementById('setupWeekCommencing').value;
+            const contract = getCurrentContract();
+            if (!contract) return;
 
-            if (!contractId) {
-                alert('Please select a contract');
-                return;
-            }
+            const weekCommencing = document.getElementById('setupWeekCommencing').value;
 
             if (!weekCommencing) {
                 alert('Please select a week commencing date');
                 return;
             }
 
-            weeklySetup = {
-                contractId,
-                weekCommencing,
-                savedAt: new Date().toISOString()
-            };
+            // Initialize week data if not exists
+            if (!contract.weeklyData[weekCommencing]) {
+                contract.weeklyData[weekCommencing] = {
+                    weekCommencing,
+                    reflection: {},
+                    createdAt: new Date().toISOString()
+                };
+            }
 
             saveData();
+            updateContextBar();
+            loadReflection();
             updateReportPreview();
 
             // Show success message
             const msgDiv = document.getElementById('setupSuccessMessage');
-            msgDiv.innerHTML = '<div class="success-message">✓ Weekly setup saved successfully!</div>';
+            msgDiv.innerHTML = '<div class="success-message">Week configuration saved!</div>';
             setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
         }
 
-        // Reflection
+        // Reflection - now contract and week scoped
         function loadReflection() {
-            if (reflection.wentWell) {
-                document.getElementById('reflectWentWell').value = reflection.wentWell;
-            }
-            if (reflection.doDifferently) {
-                document.getElementById('reflectDoDifferently').value = reflection.doDifferently;
-            }
-            if (reflection.keyLearning) {
-                document.getElementById('reflectKeyLearning').value = reflection.keyLearning;
-            }
+            const weekData = getCurrentWeekData();
+            const reflection = weekData?.reflection || {};
+
+            document.getElementById('reflectWentWell').value = reflection.wentWell || '';
+            document.getElementById('reflectDoDifferently').value = reflection.doDifferently || '';
+            document.getElementById('reflectKeyLearning').value = reflection.keyLearning || '';
+
+            // Reset buttons
+            document.querySelectorAll('[data-workload]').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('[data-energy]').forEach(b => b.classList.remove('active'));
+
             if (reflection.workload) {
                 document.querySelector(`[data-workload="${reflection.workload}"]`)?.classList.add('active');
             }
@@ -1302,13 +1971,31 @@
         }
 
         function saveReflection() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const weekKey = document.getElementById('setupWeekCommencing').value;
+            if (!weekKey) {
+                alert('Please configure a week in the SETUP tab first');
+                return;
+            }
+
+            // Ensure week data exists
+            if (!contract.weeklyData[weekKey]) {
+                contract.weeklyData[weekKey] = {
+                    weekCommencing: weekKey,
+                    reflection: {},
+                    createdAt: new Date().toISOString()
+                };
+            }
+
             const wentWell = document.getElementById('reflectWentWell').value;
             const doDifferently = document.getElementById('reflectDoDifferently').value;
             const keyLearning = document.getElementById('reflectKeyLearning').value;
             const workload = document.querySelector('[data-workload].active')?.dataset.workload;
             const energy = document.querySelector('[data-energy].active')?.dataset.energy;
 
-            reflection = {
+            contract.weeklyData[weekKey].reflection = {
                 wentWell,
                 doDifferently,
                 keyLearning,
@@ -1322,29 +2009,29 @@
 
             // Show success message
             const msgDiv = document.getElementById('reflectSuccessMessage');
-            msgDiv.innerHTML = '<div class="success-message">✓ Reflection saved successfully!</div>';
+            msgDiv.innerHTML = '<div class="success-message">Reflection saved!</div>';
             setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
         }
 
-        // OPERATE Framework
+        // OPERATE Framework - contract scoped
         function loadOperate() {
-            if (operate.plan) {
-                document.getElementById('operatePlan').value = operate.plan;
-            }
-            if (operate.execute) {
-                document.getElementById('operateExecute').value = operate.execute;
-            }
-            if (operate.report) {
-                document.getElementById('operateReport').value = operate.report;
-            }
+            const contract = getCurrentContract();
+            const operate = contract?.operate || {};
+
+            document.getElementById('operatePlan').value = operate.plan || '';
+            document.getElementById('operateExecute').value = operate.execute || '';
+            document.getElementById('operateReport').value = operate.report || '';
         }
 
         function saveOperate() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
             const plan = document.getElementById('operatePlan').value;
             const execute = document.getElementById('operateExecute').value;
             const report = document.getElementById('operateReport').value;
 
-            operate = {
+            contract.operate = {
                 plan,
                 execute,
                 report,
@@ -1356,25 +2043,47 @@
 
             // Show success message
             const msgDiv = document.getElementById('operateSuccessMessage');
-            msgDiv.innerHTML = '<div class="success-message">✓ OPERATE plan saved successfully!</div>';
+            msgDiv.innerHTML = '<div class="success-message">OPERATE plan saved!</div>';
             setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
         }
 
-        // Risks
+        // Risks - contract scoped
         function addRisk() {
-            risks.push({
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            if (!contract.risks) contract.risks = [];
+
+            contract.risks.push({
                 id: Date.now().toString(),
                 description: '',
                 probability: 'low',
                 impact: 'low',
                 mitigation: ''
             });
+
             saveData();
             renderRisks();
         }
 
         function renderRisks() {
+            const contract = getCurrentContract();
+            const risks = contract?.risks || [];
+
             const tbody = document.getElementById('risksBody');
+            const emptyState = document.getElementById('risksEmptyState');
+            const table = document.getElementById('risksTable');
+
+            if (risks.length === 0) {
+                tbody.innerHTML = '';
+                table.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            emptyState.style.display = 'none';
+
             tbody.innerHTML = risks.map(risk => `
                 <tr>
                     <td><input type="text" value="${escapeHtml(risk.description)}" onchange="updateRisk('${escapeHtml(risk.id)}', 'description', this.value)"></td>
@@ -1393,13 +2102,16 @@
                         </select>
                     </td>
                     <td><input type="text" value="${escapeHtml(risk.mitigation)}" onchange="updateRisk('${escapeHtml(risk.id)}', 'mitigation', this.value)"></td>
-                    <td><button class="btn btn-secondary" onclick="deleteRisk('${escapeHtml(risk.id)}')">×</button></td>
+                    <td><button class="btn btn-secondary btn-small" onclick="deleteRisk('${escapeHtml(risk.id)}')">×</button></td>
                 </tr>
             `).join('');
         }
 
         function updateRisk(id, field, value) {
-            const risk = risks.find(r => r.id === id);
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const risk = contract.risks.find(r => r.id === id);
             if (risk) {
                 risk[field] = value;
                 saveData();
@@ -1408,36 +2120,65 @@
         }
 
         function deleteRisk(id) {
-            risks = risks.filter(r => r.id !== id);
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            contract.risks = contract.risks.filter(r => r.id !== id);
             saveData();
             renderRisks();
+            renderContracts();
             updateReportPreview();
         }
 
-        // Values
+        // Values - contract scoped
         function addValue() {
-            values.push({
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            if (!contract.values) contract.values = [];
+
+            contract.values.push({
                 id: Date.now().toString(),
                 valueAdded: '',
                 clientBenefit: ''
             });
+
             saveData();
             renderValues();
         }
 
         function renderValues() {
+            const contract = getCurrentContract();
+            const values = contract?.values || [];
+
             const tbody = document.getElementById('valueBody');
+            const emptyState = document.getElementById('valuesEmptyState');
+            const table = document.getElementById('valueTable');
+
+            if (values.length === 0) {
+                tbody.innerHTML = '';
+                table.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            emptyState.style.display = 'none';
+
             tbody.innerHTML = values.map(value => `
                 <tr>
                     <td><input type="text" value="${escapeHtml(value.valueAdded)}" onchange="updateValue('${escapeHtml(value.id)}', 'valueAdded', this.value)"></td>
                     <td><input type="text" value="${escapeHtml(value.clientBenefit)}" onchange="updateValue('${escapeHtml(value.id)}', 'clientBenefit', this.value)"></td>
-                    <td><button class="btn btn-secondary" onclick="deleteValue('${escapeHtml(value.id)}')">×</button></td>
+                    <td><button class="btn btn-secondary btn-small" onclick="deleteValue('${escapeHtml(value.id)}')">×</button></td>
                 </tr>
             `).join('');
         }
 
         function updateValue(id, field, value) {
-            const val = values.find(v => v.id === id);
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const val = contract.values.find(v => v.id === id);
             if (val) {
                 val[field] = value;
                 saveData();
@@ -1446,9 +2187,13 @@
         }
 
         function deleteValue(id) {
-            values = values.filter(v => v.id !== id);
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            contract.values = contract.values.filter(v => v.id !== id);
             saveData();
             renderValues();
+            renderContracts();
             updateReportPreview();
         }
 
@@ -1467,25 +2212,30 @@
             });
         });
 
-        // Report Generation
+        // Report Generation - contract scoped
         function updateReportPreview() {
             const includePrivate = document.getElementById('includePrivate').checked;
             const reportContent = document.getElementById('reportContent');
             const reportClient = document.getElementById('reportClient');
             const reportWeek = document.getElementById('reportWeek');
 
+            const contract = getCurrentContract();
+            const weekKey = document.getElementById('setupWeekCommencing')?.value || getCurrentWeekKey();
+            const weekData = contract?.weeklyData?.[weekKey];
+            const reflection = weekData?.reflection || {};
+            const operate = contract?.operate || {};
+            const risks = contract?.risks || [];
+            const values = contract?.values || [];
+
             // Update header
-            if (weeklySetup.contractId) {
-                const contract = contracts.find(c => c.id === weeklySetup.contractId);
-                if (contract) {
-                    reportClient.textContent = escapeHtml(contract.name);
-                }
+            if (contract) {
+                reportClient.textContent = contract.name;
             } else {
-                reportClient.textContent = 'Unspecified Client';
+                reportClient.textContent = 'No Contract Selected';
             }
 
-            if (weeklySetup.weekCommencing) {
-                reportWeek.textContent = `WEEK COMMENCING: ${escapeHtml(weeklySetup.weekCommencing)}`;
+            if (weekKey) {
+                reportWeek.textContent = `WEEK COMMENCING: ${weekKey}`;
             } else {
                 reportWeek.textContent = 'WEEK COMMENCING: [DATE]';
             }
@@ -1554,13 +2304,16 @@
             }
 
             if (content === '') {
-                content = '<p style="text-align: center; color: #666;">Configure your weekly setup to generate report content.</p>';
+                content = '<p style="text-align: center; color: #666;">Select a contract and configure your week to generate report content.</p>';
             }
 
             reportContent.innerHTML = content;
         }
 
         function downloadReport() {
+            const contract = getCurrentContract();
+            const weekKey = document.getElementById('setupWeekCommencing')?.value || getCurrentWeekKey();
+
             // Generate HTML report
             const reportPreview = document.getElementById('reportPreview').innerHTML;
             const html = `
@@ -1568,7 +2321,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Weekly Status Report</title>
+    <title>Weekly Status Report - ${contract?.name || 'Unknown'}</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
         h1, h2, h3 { margin-top: 1em; }
@@ -1588,7 +2341,8 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `weekly-report-${weeklySetup.weekCommencing || 'draft'}.html`;
+            const contractName = contract?.name?.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'unknown';
+            a.download = `weekly-report-${contractName}-${weekKey || 'draft'}.html`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
