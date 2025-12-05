@@ -51,6 +51,8 @@
             --purple-dark: #9333EA;
             --red: #EF4444;
             --red-dark: #DC2626;
+            --yellow: #EAB308;
+            --yellow-dark: #CA8A04;
 
             /* Shadows & Depth */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
@@ -217,9 +219,9 @@
             background: transparent;
             color: var(--gray-400);
             border: none;
-            padding: 1rem 1.75rem;
+            padding: 1rem 1.5rem;
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             letter-spacing: 0.03em;
             cursor: pointer;
             transition: all var(--transition-base);
@@ -360,6 +362,10 @@
             transform: translateY(-2px);
         }
 
+        .card.no-hover:hover {
+            transform: none;
+        }
+
         .grid {
             display: grid;
             gap: 2rem;
@@ -371,6 +377,10 @@
 
         .grid-3 {
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
 
         input, textarea, select {
@@ -462,6 +472,18 @@
             background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
             color: #dbeafe;
             border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .badge-yellow {
+            background: linear-gradient(135deg, var(--yellow-dark) 0%, var(--yellow) 100%);
+            color: #fef3c7;
+            border-color: rgba(234, 179, 8, 0.2);
+        }
+
+        .badge-gray {
+            background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-500) 100%);
+            color: var(--gray-200);
+            border-color: rgba(136, 136, 136, 0.2);
         }
 
         .progress-bar {
@@ -736,15 +758,114 @@
             font-size: 0.8125rem;
         }
 
-        .brand-logo {
-            max-width: 100%;
-            height: auto;
+        /* Dashboard Stats */
+        .dashboard-stat {
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
         }
 
-        .report-logo {
-            max-width: 400px;
-            height: auto;
+        .dashboard-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', Georgia, serif;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dashboard-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
             margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--gray-700);
+            background: var(--dark-elevated);
+            color: var(--gray-400);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--gray-500);
+            color: white;
+        }
+
+        .filter-btn.active {
+            border-color: var(--gold);
+            background: var(--gray-800);
+            color: var(--gold);
+        }
+
+        /* Week History */
+        .week-history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--gray-900);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .week-history-item:hover {
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .week-history-item.active {
+            border-color: var(--gold);
+            background: rgba(197, 160, 81, 0.1);
+        }
+
+        /* Template Cards */
+        .template-card {
+            background: var(--gray-900);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .template-card:hover {
+            border-color: var(--gold-dark);
+            background: var(--gray-800);
+        }
+
+        .template-card h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .template-card p {
+            color: var(--gray-400);
+            font-size: 0.8125rem;
         }
 
         /* Onboarding Checklist */
@@ -818,25 +939,32 @@
             text-decoration-color: rgba(34, 197, 94, 0.5);
         }
 
-        /* Week Selector */
-        .week-selector {
-            display: flex;
-            align-items: center;
+        /* Contract summary stats */
+        .contract-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.75rem;
             background: var(--gray-900);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-sm);
         }
 
-        .week-selector label {
-            margin-bottom: 0;
-            white-space: nowrap;
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
         }
 
-        .week-selector input {
-            max-width: 200px;
+        .stat-label {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         @media (max-width: 768px) {
@@ -850,11 +978,11 @@
             }
 
             .tab {
-                padding: 0.875rem 1.25rem;
-                font-size: 0.8125rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.75rem;
             }
 
-            .grid-2, .grid-3 {
+            .grid-2, .grid-3, .grid-4 {
                 grid-template-columns: 1fr;
             }
 
@@ -879,10 +1007,6 @@
 
             h3 {
                 font-size: 1.25rem;
-            }
-
-            .report-logo {
-                max-width: 280px;
             }
 
             .section-header {
@@ -1013,7 +1137,6 @@
             font-weight: 700;
         }
 
-        /* Tab button actions */
         .modal-actions {
             display: flex;
             gap: 1rem;
@@ -1023,32 +1146,9 @@
             border-top: 1px solid var(--gray-800);
         }
 
-        /* Contract summary stats */
-        .contract-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 0.75rem;
-            background: var(--gray-900);
-            border-radius: var(--radius-sm);
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-        }
-
-        .stat-label {
-            font-size: 0.6875rem;
-            color: var(--gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        /* Hidden file input */
+        .hidden-input {
+            display: none;
         }
     </style>
 </head>
@@ -1077,6 +1177,9 @@
         </div>
 
         <div class="tabs">
+            <button class="tab" data-tab="dashboard">
+                DASHBOARD
+            </button>
             <button class="tab active" data-tab="contracts">
                 CONTRACTS
             </button>
@@ -1100,6 +1203,51 @@
             </button>
         </div>
 
+        <!-- DASHBOARD TAB -->
+        <div class="tab-content" id="dashboard">
+            <div class="section-header">
+                <div>
+                    <h2>PORTFOLIO DASHBOARD</h2>
+                    <p style="color: #999;">Overview of all your contracts at a glance</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem;">
+                    <button class="btn btn-secondary btn-small" onclick="exportData()">Export Data</button>
+                    <button class="btn btn-secondary btn-small" onclick="document.getElementById('importFile').click()">Import Data</button>
+                    <input type="file" id="importFile" class="hidden-input" accept=".json" onchange="importData(event)">
+                </div>
+            </div>
+
+            <div class="grid grid-4" style="margin-bottom: 2rem;">
+                <div class="dashboard-stat">
+                    <div class="dashboard-stat-value" id="dashTotalContracts">0</div>
+                    <div class="dashboard-stat-label">Total Contracts</div>
+                </div>
+                <div class="dashboard-stat">
+                    <div class="dashboard-stat-value" id="dashActiveContracts">0</div>
+                    <div class="dashboard-stat-label">Active</div>
+                </div>
+                <div class="dashboard-stat">
+                    <div class="dashboard-stat-value" id="dashTotalEarnings">£0</div>
+                    <div class="dashboard-stat-label">Potential Monthly (Est.)</div>
+                </div>
+                <div class="dashboard-stat">
+                    <div class="dashboard-stat-value" id="dashTotalRisks">0</div>
+                    <div class="dashboard-stat-label">Total Active Risks</div>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card no-hover">
+                    <h3>Contract Health Overview</h3>
+                    <div id="dashContractHealth"></div>
+                </div>
+                <div class="card no-hover">
+                    <h3>High Priority Risks</h3>
+                    <div id="dashHighRisks"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- CONTRACTS TAB -->
         <div class="tab-content active" id="contracts">
             <div class="section-header">
@@ -1107,7 +1255,17 @@
                     <h2>CONTRACT PORTFOLIO</h2>
                     <p style="color: #999;">Manage active engagements. Click a contract to select it and access all features.</p>
                 </div>
-                <button class="btn" onclick="showAddContractModal()">+ NEW CONTRACT</button>
+                <div style="display: flex; gap: 0.75rem;">
+                    <button class="btn btn-secondary" onclick="showTemplateModal()">Use Template</button>
+                    <button class="btn" onclick="showAddContractModal()">+ NEW CONTRACT</button>
+                </div>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" onclick="filterContracts('all')">All</button>
+                <button class="filter-btn" data-filter="active" onclick="filterContracts('active')">Active</button>
+                <button class="filter-btn" data-filter="paused" onclick="filterContracts('paused')">Paused</button>
+                <button class="filter-btn" data-filter="completed" onclick="filterContracts('completed')">Completed</button>
             </div>
 
             <div id="contractsList" class="grid grid-2"></div>
@@ -1148,18 +1306,26 @@
 
             <div id="setupSuccessMessage"></div>
 
-            <div class="card">
-                <div class="form-group">
-                    <label>WEEK COMMENCING</label>
-                    <input type="date" id="setupWeekCommencing">
+            <div class="grid grid-2">
+                <div class="card no-hover">
+                    <h3>Current Week</h3>
+                    <div class="form-group">
+                        <label>WEEK COMMENCING</label>
+                        <input type="date" id="setupWeekCommencing">
+                    </div>
+                    <button class="btn" onclick="saveWeeklySetup()">Save Configuration</button>
                 </div>
 
-                <div class="info-box">
-                    <h4>THE RHYTHM</h4>
-                    <p style="color: #999;">Consistency builds trust. Configure your week here to track reflections, OPERATE plans, and generate your weekly delivery report for this specific contract.</p>
+                <div class="card no-hover">
+                    <h3>Week History</h3>
+                    <p style="color: var(--gray-400); font-size: 0.875rem; margin-bottom: 1rem;">Click a week to view/edit that week's data</p>
+                    <div id="weekHistoryList" style="max-height: 300px; overflow-y: auto;"></div>
                 </div>
+            </div>
 
-                <button class="btn" onclick="saveWeeklySetup()">Save Configuration</button>
+            <div class="info-box">
+                <h4>THE RHYTHM</h4>
+                <p style="color: #999;">Consistency builds trust. Configure your week here to track reflections, OPERATE plans, and generate your weekly delivery report for this specific contract.</p>
             </div>
         </div>
 
@@ -1374,14 +1540,30 @@
                 <input type="text" id="contractName" required>
             </div>
 
-            <div class="form-group">
-                <label>START DATE</label>
-                <input type="date" id="contractStartDate">
+            <div class="grid grid-2">
+                <div class="form-group">
+                    <label>START DATE</label>
+                    <input type="date" id="contractStartDate">
+                </div>
+                <div class="form-group">
+                    <label>STATUS</label>
+                    <select id="contractStatus">
+                        <option value="active">Active</option>
+                        <option value="paused">Paused</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label>DAY RATE (£)</label>
-                <input type="number" id="contractDayRate">
+            <div class="grid grid-2">
+                <div class="form-group">
+                    <label>DAY RATE (£)</label>
+                    <input type="number" id="contractDayRate">
+                </div>
+                <div class="form-group">
+                    <label>DAYS PER WEEK</label>
+                    <input type="number" id="contractDaysPerWeek" value="5" min="1" max="7">
+                </div>
             </div>
 
             <div class="form-group">
@@ -1415,6 +1597,41 @@
                 <button class="btn btn-danger" onclick="deleteContract()">Delete Contract</button>
                 <button class="btn btn-secondary" onclick="closeModal('contractDetailsModal')">Close</button>
                 <button class="btn" onclick="saveContractEdits()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Modal -->
+    <div class="modal" id="templateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Choose a Contract Template</h3>
+                <button class="close-btn" onclick="closeModal('templateModal')">&times;</button>
+            </div>
+
+            <p style="color: var(--gray-400); margin-bottom: 1.5rem;">Select a template to pre-fill common onboarding items based on your contract type:</p>
+
+            <div class="grid grid-2" style="gap: 1rem;">
+                <div class="template-card" onclick="applyTemplate('tech')">
+                    <h4>Tech/Software Contract</h4>
+                    <p>Pre-fills: code repos, dev tools, VPN, Slack/Teams, technical architecture items</p>
+                </div>
+                <div class="template-card" onclick="applyTemplate('consulting')">
+                    <h4>Consulting/Advisory</h4>
+                    <p>Pre-fills: stakeholder intros, meeting cadence, reporting structure items</p>
+                </div>
+                <div class="template-card" onclick="applyTemplate('remote')">
+                    <h4>Remote-First Contract</h4>
+                    <p>Pre-fills: communication tools, working hours, availability expectations</p>
+                </div>
+                <div class="template-card" onclick="applyTemplate('onsite')">
+                    <h4>On-Site Contract</h4>
+                    <p>Pre-fills: equipment, security credentials, team introductions</p>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('templateModal')">Cancel</button>
             </div>
         </div>
     </div>
@@ -1467,9 +1684,19 @@
             ]
         };
 
-        // Data storage - contract-scoped architecture
+        // Contract Templates
+        const CONTRACT_TEMPLATES = {
+            tech: ['access-3', 'access-4', 'access-5', 'project-2', 'project-3'],
+            consulting: ['stake-1', 'stake-2', 'stake-3', 'stake-4', 'ways-2'],
+            remote: ['access-5', 'ways-1', 'ways-3', 'access-2'],
+            onsite: ['access-1', 'access-4', 'stake-3', 'project-1']
+        };
+
+        // Data storage
         let contracts = [];
         let currentContractId = null;
+        let currentFilter = 'all';
+        let selectedWeekKey = null;
 
         // Load data from localStorage with migration support
         function loadData() {
@@ -1479,9 +1706,10 @@
 
                 // Check if we need to migrate from old format
                 if (data.contracts && data.contracts.length > 0 && !data.contracts[0].hasOwnProperty('onboarding')) {
-                    // Migration: convert old format to new contract-scoped format
                     contracts = data.contracts.map(contract => ({
                         ...contract,
+                        status: 'active',
+                        daysPerWeek: 5,
                         onboarding: {},
                         weeklyData: {},
                         operate: {},
@@ -1490,7 +1718,6 @@
                         notes: ''
                     }));
 
-                    // If there was global data, assign to first contract
                     if (contracts.length > 0 && (data.operate || data.risks || data.values || data.reflection)) {
                         const firstContract = contracts[0];
                         if (data.operate) firstContract.operate = data.operate;
@@ -1506,12 +1733,17 @@
 
                     saveData();
                 } else {
-                    contracts = data.contracts || [];
+                    contracts = (data.contracts || []).map(c => ({
+                        ...c,
+                        status: c.status || 'active',
+                        daysPerWeek: c.daysPerWeek || 5
+                    }));
                 }
 
                 currentContractId = data.currentContractId || null;
             }
 
+            renderDashboard();
             renderContracts();
             updateTabStates();
             updateContextBar();
@@ -1529,6 +1761,48 @@
             }));
         }
 
+        // Export data
+        function exportData() {
+            const data = { contracts, currentContractId, exportedAt: new Date().toISOString() };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tcc-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Import data
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.contracts) {
+                        if (confirm('This will replace all your current data. Are you sure?')) {
+                            contracts = data.contracts;
+                            currentContractId = data.currentContractId || null;
+                            saveData();
+                            loadData();
+                            alert('Data imported successfully!');
+                        }
+                    } else {
+                        alert('Invalid backup file format');
+                    }
+                } catch (err) {
+                    alert('Error reading backup file: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
         // Get current contract
         function getCurrentContract() {
             return contracts.find(c => c.id === currentContractId);
@@ -1536,10 +1810,11 @@
 
         // Get current week key
         function getCurrentWeekKey() {
+            if (selectedWeekKey) return selectedWeekKey;
+
             const contract = getCurrentContract();
             if (!contract) return null;
 
-            // Find the most recent week configured for this contract
             const weeks = Object.keys(contract.weeklyData || {}).sort().reverse();
             return weeks[0] || null;
         }
@@ -1555,7 +1830,71 @@
             return contract.weeklyData[weekKey];
         }
 
-        // Update tab states based on contract selection
+        // Dashboard
+        function renderDashboard() {
+            const activeContracts = contracts.filter(c => c.status === 'active');
+            const totalRisks = contracts.reduce((sum, c) => sum + (c.risks?.length || 0), 0);
+            const monthlyEarnings = activeContracts.reduce((sum, c) => {
+                const rate = parseFloat(c.dayRate) || 0;
+                const days = parseFloat(c.daysPerWeek) || 5;
+                return sum + (rate * days * 4.33);
+            }, 0);
+
+            document.getElementById('dashTotalContracts').textContent = contracts.length;
+            document.getElementById('dashActiveContracts').textContent = activeContracts.length;
+            document.getElementById('dashTotalEarnings').textContent = '£' + Math.round(monthlyEarnings).toLocaleString();
+            document.getElementById('dashTotalRisks').textContent = totalRisks;
+
+            // Contract Health
+            const healthDiv = document.getElementById('dashContractHealth');
+            if (contracts.length === 0) {
+                healthDiv.innerHTML = '<p style="color: var(--gray-500); text-align: center; padding: 2rem;">No contracts yet</p>';
+            } else {
+                healthDiv.innerHTML = contracts.map(c => {
+                    const onboardingComplete = Object.values(c.onboarding || {}).filter(v => v).length;
+                    const onboardingPct = Math.round((onboardingComplete / 22) * 100);
+                    const statusBadge = c.status === 'active' ? 'badge-green' : c.status === 'paused' ? 'badge-yellow' : 'badge-gray';
+                    return `
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--gray-900); border-radius: var(--radius-sm); margin-bottom: 0.5rem;">
+                            <div>
+                                <span style="color: var(--gold); font-weight: 600;">${escapeHtml(c.name)}</span>
+                                <span class="badge ${statusBadge}" style="margin-left: 0.5rem;">${escapeHtml(c.status)}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span style="color: var(--gray-400); font-size: 0.8125rem;">${onboardingPct}% onboarded</span>
+                                <span style="color: var(--gray-400); font-size: 0.8125rem;">${(c.risks || []).length} risks</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // High Priority Risks
+            const risksDiv = document.getElementById('dashHighRisks');
+            const highRisks = [];
+            contracts.forEach(c => {
+                (c.risks || []).forEach(r => {
+                    if (r.probability === 'high' || r.impact === 'high') {
+                        highRisks.push({ ...r, contractName: c.name });
+                    }
+                });
+            });
+
+            if (highRisks.length === 0) {
+                risksDiv.innerHTML = '<p style="color: var(--gray-500); text-align: center; padding: 2rem;">No high priority risks</p>';
+            } else {
+                risksDiv.innerHTML = highRisks.slice(0, 5).map(r => `
+                    <div style="padding: 0.75rem; background: var(--gray-900); border-radius: var(--radius-sm); margin-bottom: 0.5rem; border-left: 3px solid var(--red);">
+                        <div style="color: var(--gray-200); font-size: 0.9375rem;">${escapeHtml(r.description) || '(No description)'}</div>
+                        <div style="color: var(--gray-500); font-size: 0.75rem; margin-top: 0.25rem;">
+                            ${escapeHtml(r.contractName)} | Prob: ${escapeHtml(r.probability)} | Impact: ${escapeHtml(r.impact)}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Update tab states
         function updateTabStates() {
             const hasContract = currentContractId !== null;
             document.querySelectorAll('.tab.requires-contract').forEach(tab => {
@@ -1592,7 +1931,6 @@
             tab.addEventListener('click', () => {
                 const tabName = tab.dataset.tab;
 
-                // Check if tab requires contract
                 if (tab.classList.contains('requires-contract') && !tab.classList.contains('enabled')) {
                     alert('Please select a contract first from the CONTRACTS tab.');
                     return;
@@ -1603,8 +1941,21 @@
 
                 tab.classList.add('active');
                 document.getElementById(tabName).classList.add('active');
+
+                if (tabName === 'dashboard') {
+                    renderDashboard();
+                }
             });
         });
+
+        // Filter contracts
+        function filterContracts(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+            renderContracts();
+        }
 
         // Contracts
         function showAddContractModal() {
@@ -1612,8 +1963,22 @@
             document.getElementById('contractName').value = '';
             document.getElementById('contractStartDate').value = '';
             document.getElementById('contractDayRate').value = '';
+            document.getElementById('contractDaysPerWeek').value = '5';
             document.getElementById('contractEndDate').value = '';
             document.getElementById('contractNotes').value = '';
+            document.getElementById('contractStatus').value = 'active';
+        }
+
+        function showTemplateModal() {
+            document.getElementById('templateModal').classList.add('active');
+        }
+
+        function applyTemplate(templateType) {
+            closeModal('templateModal');
+            showAddContractModal();
+
+            // Store template to apply after contract creation
+            window.pendingTemplate = templateType;
         }
 
         function closeModal(modalId) {
@@ -1624,12 +1989,25 @@
             const name = document.getElementById('contractName').value;
             const startDate = document.getElementById('contractStartDate').value;
             const dayRate = document.getElementById('contractDayRate').value;
+            const daysPerWeek = document.getElementById('contractDaysPerWeek').value || 5;
             const endDate = document.getElementById('contractEndDate').value;
             const notes = document.getElementById('contractNotes').value;
+            const status = document.getElementById('contractStatus').value;
 
             if (!name) {
                 alert('Please enter a client name');
                 return;
+            }
+
+            const onboarding = {};
+
+            // Apply template if pending
+            if (window.pendingTemplate) {
+                const templateItems = CONTRACT_TEMPLATES[window.pendingTemplate] || [];
+                templateItems.forEach(id => {
+                    onboarding[id] = true;
+                });
+                window.pendingTemplate = null;
             }
 
             contracts.push({
@@ -1637,9 +2015,11 @@
                 name,
                 startDate,
                 dayRate,
+                daysPerWeek: parseInt(daysPerWeek),
                 endDate,
                 notes,
-                onboarding: {},
+                status,
+                onboarding,
                 weeklyData: {},
                 operate: {},
                 risks: [],
@@ -1649,34 +2029,44 @@
 
             saveData();
             renderContracts();
+            renderDashboard();
             closeModal('addContractModal');
         }
 
         function renderContracts() {
             const container = document.getElementById('contractsList');
 
-            if (contracts.length === 0) {
+            let filteredContracts = contracts;
+            if (currentFilter !== 'all') {
+                filteredContracts = contracts.filter(c => c.status === currentFilter);
+            }
+
+            if (filteredContracts.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state" style="grid-column: 1 / -1;">
                         <div class="empty-state-icon">∅</div>
-                        <p>No contracts yet. Add your first client to get started.</p>
+                        <p>${currentFilter === 'all' ? 'No contracts yet. Add your first client to get started.' : 'No ' + currentFilter + ' contracts.'}</p>
                     </div>
                 `;
                 return;
             }
 
-            container.innerHTML = contracts.map(contract => {
+            container.innerHTML = filteredContracts.map(contract => {
                 const onboardingComplete = Object.values(contract.onboarding || {}).filter(v => v).length;
                 const totalOnboarding = 22;
                 const isSelected = contract.id === currentContractId;
                 const riskCount = (contract.risks || []).length;
                 const valueCount = (contract.values || []).length;
+                const statusBadge = contract.status === 'active' ? 'badge-green' : contract.status === 'paused' ? 'badge-yellow' : 'badge-gray';
 
                 return `
                 <div class="contract-card ${isSelected ? 'selected' : ''}" onclick="selectContract('${escapeHtml(contract.id)}')">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
                         <div class="contract-name">${escapeHtml(contract.name)}</div>
-                        ${isSelected ? '<span class="badge badge-green">ACTIVE</span>' : ''}
+                        <div style="display: flex; gap: 0.5rem;">
+                            <span class="badge ${statusBadge}">${escapeHtml(contract.status)}</span>
+                            ${isSelected ? '<span class="badge badge-blue">SELECTED</span>' : ''}
+                        </div>
                     </div>
                     <div class="contract-meta">
                         ${contract.startDate ? `<span class="contract-meta-item">Started: ${escapeHtml(contract.startDate)}</span>` : ''}
@@ -1710,16 +2100,15 @@
 
         function selectContract(id) {
             currentContractId = id;
+            selectedWeekKey = null;
             saveData();
             renderContracts();
             updateTabStates();
             updateContextBar();
             loadContractData();
 
-            // Show feedback
             const contract = getCurrentContract();
             if (contract) {
-                // Switch to onboarding tab if not complete, otherwise to setup
                 const onboardingComplete = Object.values(contract.onboarding || {}).filter(v => v).length;
                 if (onboardingComplete < 22) {
                     switchToTab('onboarding');
@@ -1731,6 +2120,7 @@
 
         function clearActiveContract() {
             currentContractId = null;
+            selectedWeekKey = null;
             saveData();
             renderContracts();
             updateTabStates();
@@ -1746,13 +2136,13 @@
             document.getElementById(tabName).classList.add('active');
         }
 
-        // Load all contract-specific data into forms
         function loadContractData() {
             const contract = getCurrentContract();
             if (!contract) return;
 
             renderOnboardingChecklist();
             loadWeeklySetup();
+            renderWeekHistory();
             loadReflection();
             loadOperate();
             renderRisks();
@@ -1780,14 +2170,29 @@
                         <input type="date" id="editContractStartDate" value="${escapeHtml(contract.startDate || '')}">
                     </div>
                     <div class="form-group">
-                        <label>END DATE</label>
-                        <input type="date" id="editContractEndDate" value="${escapeHtml(contract.endDate || '')}">
+                        <label>STATUS</label>
+                        <select id="editContractStatus">
+                            <option value="active" ${contract.status === 'active' ? 'selected' : ''}>Active</option>
+                            <option value="paused" ${contract.status === 'paused' ? 'selected' : ''}>Paused</option>
+                            <option value="completed" ${contract.status === 'completed' ? 'selected' : ''}>Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label>DAY RATE (£)</label>
+                        <input type="number" id="editContractDayRate" value="${escapeHtml(contract.dayRate || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>DAYS PER WEEK</label>
+                        <input type="number" id="editContractDaysPerWeek" value="${escapeHtml(contract.daysPerWeek || 5)}" min="1" max="7">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>DAY RATE (£)</label>
-                    <input type="number" id="editContractDayRate" value="${escapeHtml(contract.dayRate || '')}">
+                    <label>END DATE</label>
+                    <input type="date" id="editContractEndDate" value="${escapeHtml(contract.endDate || '')}">
                 </div>
 
                 <div class="form-group">
@@ -1823,10 +2228,13 @@
             contract.startDate = document.getElementById('editContractStartDate').value;
             contract.endDate = document.getElementById('editContractEndDate').value;
             contract.dayRate = document.getElementById('editContractDayRate').value;
+            contract.daysPerWeek = parseInt(document.getElementById('editContractDaysPerWeek').value) || 5;
+            contract.status = document.getElementById('editContractStatus').value;
             contract.notes = document.getElementById('editContractNotes').value;
 
             saveData();
             renderContracts();
+            renderDashboard();
             updateContextBar();
             closeModal('contractDetailsModal');
         }
@@ -1835,7 +2243,7 @@
             const contract = getCurrentContract();
             if (!contract) return;
 
-            if (!confirm(`Are you sure you want to delete "${contract.name}"? This will permanently delete all associated data including onboarding progress, weekly data, risks, and value items.`)) {
+            if (!confirm(`Are you sure you want to delete "${contract.name}"? This will permanently delete all associated data.`)) {
                 return;
             }
 
@@ -1844,6 +2252,7 @@
 
             saveData();
             renderContracts();
+            renderDashboard();
             updateTabStates();
             updateContextBar();
             closeModal('contractDetailsModal');
@@ -1887,6 +2296,7 @@
             saveData();
             renderOnboardingChecklist();
             renderContracts();
+            renderDashboard();
         }
 
         function updateOnboardingProgress() {
@@ -1901,7 +2311,7 @@
             document.getElementById('onboardingProgressBar').style.width = `${percentage}%`;
         }
 
-        // Weekly Setup
+        // Weekly Setup & History
         function loadWeeklySetup() {
             const contract = getCurrentContract();
             if (!contract) return;
@@ -1910,12 +2320,43 @@
             if (weekKey) {
                 document.getElementById('setupWeekCommencing').value = weekKey;
             } else {
-                // Default to current week's Monday
                 const today = new Date();
                 const monday = new Date(today);
                 monday.setDate(today.getDate() - today.getDay() + 1);
                 document.getElementById('setupWeekCommencing').value = monday.toISOString().split('T')[0];
             }
+        }
+
+        function renderWeekHistory() {
+            const contract = getCurrentContract();
+            if (!contract) return;
+
+            const container = document.getElementById('weekHistoryList');
+            const weeks = Object.keys(contract.weeklyData || {}).sort().reverse();
+
+            if (weeks.length === 0) {
+                container.innerHTML = '<p style="color: var(--gray-500); text-align: center; padding: 1rem;">No weeks tracked yet</p>';
+                return;
+            }
+
+            const currentWeek = getCurrentWeekKey();
+            container.innerHTML = weeks.map(week => `
+                <div class="week-history-item ${week === currentWeek ? 'active' : ''}" onclick="selectWeek('${escapeHtml(week)}')">
+                    <span style="color: ${week === currentWeek ? 'var(--gold)' : 'var(--gray-300)'};">Week of ${escapeHtml(week)}</span>
+                    <span style="color: var(--gray-500); font-size: 0.75rem;">
+                        ${contract.weeklyData[week]?.reflection?.wentWell ? 'Has reflection' : 'No reflection'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function selectWeek(weekKey) {
+            selectedWeekKey = weekKey;
+            document.getElementById('setupWeekCommencing').value = weekKey;
+            renderWeekHistory();
+            loadReflection();
+            updateContextBar();
+            updateReportPreview();
         }
 
         function saveWeeklySetup() {
@@ -1929,7 +2370,6 @@
                 return;
             }
 
-            // Initialize week data if not exists
             if (!contract.weeklyData[weekCommencing]) {
                 contract.weeklyData[weekCommencing] = {
                     weekCommencing,
@@ -1938,18 +2378,19 @@
                 };
             }
 
+            selectedWeekKey = weekCommencing;
             saveData();
             updateContextBar();
+            renderWeekHistory();
             loadReflection();
             updateReportPreview();
 
-            // Show success message
             const msgDiv = document.getElementById('setupSuccessMessage');
             msgDiv.innerHTML = '<div class="success-message">Week configuration saved!</div>';
             setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
         }
 
-        // Reflection - now contract and week scoped
+        // Reflection
         function loadReflection() {
             const weekData = getCurrentWeekData();
             const reflection = weekData?.reflection || {};
@@ -1958,7 +2399,6 @@
             document.getElementById('reflectDoDifferently').value = reflection.doDifferently || '';
             document.getElementById('reflectKeyLearning').value = reflection.keyLearning || '';
 
-            // Reset buttons
             document.querySelectorAll('[data-workload]').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('[data-energy]').forEach(b => b.classList.remove('active'));
 
@@ -1980,7 +2420,6 @@
                 return;
             }
 
-            // Ensure week data exists
             if (!contract.weeklyData[weekKey]) {
                 contract.weeklyData[weekKey] = {
                     weekCommencing: weekKey,
@@ -1989,31 +2428,25 @@
                 };
             }
 
-            const wentWell = document.getElementById('reflectWentWell').value;
-            const doDifferently = document.getElementById('reflectDoDifferently').value;
-            const keyLearning = document.getElementById('reflectKeyLearning').value;
-            const workload = document.querySelector('[data-workload].active')?.dataset.workload;
-            const energy = document.querySelector('[data-energy].active')?.dataset.energy;
-
             contract.weeklyData[weekKey].reflection = {
-                wentWell,
-                doDifferently,
-                keyLearning,
-                workload,
-                energy,
+                wentWell: document.getElementById('reflectWentWell').value,
+                doDifferently: document.getElementById('reflectDoDifferently').value,
+                keyLearning: document.getElementById('reflectKeyLearning').value,
+                workload: document.querySelector('[data-workload].active')?.dataset.workload,
+                energy: document.querySelector('[data-energy].active')?.dataset.energy,
                 savedAt: new Date().toISOString()
             };
 
             saveData();
+            renderWeekHistory();
             updateReportPreview();
 
-            // Show success message
             const msgDiv = document.getElementById('reflectSuccessMessage');
             msgDiv.innerHTML = '<div class="success-message">Reflection saved!</div>';
             setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
         }
 
-        // OPERATE Framework - contract scoped
+        // OPERATE Framework
         function loadOperate() {
             const contract = getCurrentContract();
             const operate = contract?.operate || {};
@@ -2027,27 +2460,22 @@
             const contract = getCurrentContract();
             if (!contract) return;
 
-            const plan = document.getElementById('operatePlan').value;
-            const execute = document.getElementById('operateExecute').value;
-            const report = document.getElementById('operateReport').value;
-
             contract.operate = {
-                plan,
-                execute,
-                report,
+                plan: document.getElementById('operatePlan').value,
+                execute: document.getElementById('operateExecute').value,
+                report: document.getElementById('operateReport').value,
                 savedAt: new Date().toISOString()
             };
 
             saveData();
             updateReportPreview();
 
-            // Show success message
             const msgDiv = document.getElementById('operateSuccessMessage');
             msgDiv.innerHTML = '<div class="success-message">OPERATE plan saved!</div>';
             setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
         }
 
-        // Risks - contract scoped
+        // Risks
         function addRisk() {
             const contract = getCurrentContract();
             if (!contract) return;
@@ -2064,6 +2492,7 @@
 
             saveData();
             renderRisks();
+            renderDashboard();
         }
 
         function renderRisks() {
@@ -2115,6 +2544,7 @@
             if (risk) {
                 risk[field] = value;
                 saveData();
+                renderDashboard();
                 updateReportPreview();
             }
         }
@@ -2127,10 +2557,11 @@
             saveData();
             renderRisks();
             renderContracts();
+            renderDashboard();
             updateReportPreview();
         }
 
-        // Values - contract scoped
+        // Values
         function addValue() {
             const contract = getCurrentContract();
             if (!contract) return;
@@ -2212,7 +2643,7 @@
             });
         });
 
-        // Report Generation - contract scoped
+        // Report Generation
         function updateReportPreview() {
             const includePrivate = document.getElementById('includePrivate').checked;
             const reportContent = document.getElementById('reportContent');
@@ -2227,7 +2658,6 @@
             const risks = contract?.risks || [];
             const values = contract?.values || [];
 
-            // Update header
             if (contract) {
                 reportClient.textContent = contract.name;
             } else {
@@ -2240,7 +2670,6 @@
                 reportWeek.textContent = 'WEEK COMMENCING: [DATE]';
             }
 
-            // Generate content
             let content = '';
 
             if (reflection.wentWell || reflection.doDifferently || reflection.keyLearning) {
@@ -2314,7 +2743,6 @@
             const contract = getCurrentContract();
             const weekKey = document.getElementById('setupWeekCommencing')?.value || getCurrentWeekKey();
 
-            // Generate HTML report
             const reportPreview = document.getElementById('reportPreview').innerHTML;
             const html = `
 <!DOCTYPE html>
@@ -2336,7 +2764,6 @@
 </html>
             `;
 
-            // Create download link
             const blob = new Blob([html], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
